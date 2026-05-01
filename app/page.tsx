@@ -1538,10 +1538,11 @@ export default function HomePage() {
 
           <Reveal className="download-action-wrap" variants={createAssembleVariants({ y: 26, blur: 10, duration: 0.66 })}>
             <MagneticButton
-              href="/downloads/CAT-ALYSIM-Setup.exe"
+              href="https://drive.google.com/uc?export=download&id=1pwnOnZdu1TQj6wpp9s03npFe2L8yKfWZ"
               className="primary-btn large"
               enabled={interactiveMotion}
-              download
+              target="_blank"
+              rel="noopener noreferrer"
             >
               DOWNLOAD FOR WINDOWS
             </MagneticButton>
