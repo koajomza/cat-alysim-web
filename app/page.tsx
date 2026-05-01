@@ -353,6 +353,8 @@ function MagneticButton({
   onClick,
   enabled,
   download,
+  target,
+  rel,
 }: {
   href: string;
   className?: string;
@@ -360,6 +362,8 @@ function MagneticButton({
   onClick?: (event: ReactMouseEvent<HTMLAnchorElement>) => void;
   enabled: boolean;
   download?: boolean;
+  target?: string;
+  rel?: string;
 }) {
   const magnetic = useMagnetic(enabled, 12);
 
@@ -375,6 +379,8 @@ function MagneticButton({
       whileTap={enabled ? { scale: 0.97 } : undefined}
       data-glow
       download={download}
+      target={target}
+      rel={rel}
     >
       <span className="button-label">{children}</span>
       <span className="button-shine" aria-hidden="true" />
