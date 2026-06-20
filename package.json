@@ -1,0 +1,13 @@
+{
+  "scripts": {
+    "dev": "vite --host 0.0.0.0",
+    "build": "vite build",
+    "preview": "vite preview --host 0.0.0.0",
+    "mobile": "vite --host 0.0.0.0 --open /mobile.html",
+    "desktop": "vite --host 0.0.0.0 --open /index.html"
+  },
+  "dependencies": {
+    "vite": "latest"
+  },
+  "devDependencies": {}
+}

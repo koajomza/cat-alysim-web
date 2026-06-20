@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="th">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#050711" />
+  <title>CAT-ALYSIM Mobile</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700;900&family=IBM+Plex+Sans+Thai:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="mobile.css" />
+</head>
+<body>
+  <div class="mobile-bg" aria-hidden="true">
+    <span class="orb orb-a"></span>
+    <span class="orb orb-b"></span>
+    <span class="orb orb-c"></span>
+    <span class="star-layer"></span>
+  </div>
+
+  <main class="mobile-shell">
+    <header class="mobile-hero">
+      <a class="desktop-link" href="index.html">Desktop View</a>
+      <p class="eyebrow">MOBILE CONSOLE</p>
+      <h1>CAT-ALYSIM</h1>
+      <p class="lead">หน้าแยกสำหรับมือถือ โหลดเบากว่า แตะง่ายกว่า ไม่ต้องลากนิ้วสู้กับจักรวาลทั้งดวง</p>
+    </header>
+
+    <nav class="mobile-tabs" id="mobileTabs" aria-label="Mobile main menu"></nav>
+
+    <section class="mobile-panel" id="mobilePanel" aria-live="polite">
+      <div class="panel-head">
+        <span class="panel-icon" id="panelIcon">✦</span>
+        <div>
+          <p id="panelKicker">FEATURE</p>
+          <h2 id="panelTitle">ฟีเจอร์หลัก</h2>
+        </div>
+      </div>
+      <p class="panel-desc" id="panelDesc"></p>
+      <div class="sub-card-list" id="subCardList"></div>
+    </section>
+
+    <section class="mobile-quick-actions" aria-label="Quick actions">
+      <a class="primary-action" href="download.html">ดาวน์โหลด</a>
+      <a class="secondary-action" href="guide.html">คู่มือเริ่มต้น</a>
+    </section>
+  </main>
+
+  <script src="mobile.js"></script>
+</body>
+</html>
