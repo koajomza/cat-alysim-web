@@ -472,6 +472,9 @@
 .license-card small{display:flex;align-items:center;gap:7px;padding-top:18px;border-top:1px solid #dfe7f2;color:#66768e;font-weight:850}
 .payment-steps{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;margin-top:20px}.payment-steps article{padding:22px}.payment-steps svg{color:#2458ff}.payment-steps h3{margin:16px 0 7px;color:#071a46;font-size:21px}.payment-steps p{margin:0;color:#62718a;line-height:1.65;font-size:14px}
 .download-exe{font-size:17px;min-height:56px}
+.download-band .btn-light{color:#173aaf!important;background:#fff!important;border:1px solid #ffffffcc;box-shadow:0 18px 38px rgba(4,17,46,.22)}
+.download-band .download-exe{min-width:260px;font-size:17px;font-weight:950}
+.download-band .download-exe svg{color:#173aaf;flex:none}
 .home-choice-section{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px;padding:72px max(28px,calc((100vw - 1440px)/2));background:#fff}
 .home-choice-section>a{min-height:230px;position:relative;padding:28px;border:1px solid #d9e4f1;border-radius:24px;background:linear-gradient(180deg,#fff,#f8fbff);box-shadow:0 16px 42px rgba(17,40,77,.07);color:#10203c;display:grid;align-content:start;gap:12px;transition:.22s}
 .home-choice-section>a:hover{transform:translateY(-5px);border-color:#95abff;box-shadow:0 24px 56px rgba(36,79,190,.13)}
