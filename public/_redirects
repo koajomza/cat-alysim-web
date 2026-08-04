@@ -3,6 +3,12 @@
 /payment /payment/ 301
 /payment/ /index.html 200
 /payment/* /index.html 200
+/program /program/ 301
+/program/ /index.html 200
+/program/* /index.html 200
+/features /features/ 301
+/features/ /index.html 200
+/features/* /index.html 200
 /trial/drugs /trial/drugs/ 301
 /trial/drugs/ /index.html 200
 /trial/drugs/* /index.html 200
