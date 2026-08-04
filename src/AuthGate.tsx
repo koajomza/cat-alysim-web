@@ -6,7 +6,8 @@ type Mode='login'|'signup';
 type SerialMode='trial'|'paid'|null;
 
 export default function AuthGate({children}:{children:React.ReactNode}){
- const [status,setStatus]=useState<AuthStatus|null>(null),[allowed,setAllowed]=useState(false),[mode,setMode]=useState<Mode>('login'),[serialMode,setSerialMode]=useState<SerialMode>(null);
+ const initialMode=(new URLSearchParams(window.location.search).get('auth')==='signup'?'signup':'login') as Mode;
+ const [status,setStatus]=useState<AuthStatus|null>(null),[allowed,setAllowed]=useState(false),[mode,setMode]=useState<Mode>(initialMode),[serialMode,setSerialMode]=useState<SerialMode>(null);
  const [login,setLogin]=useState(localStorage.getItem('cat_alysim_last_login')||''),[password,setPassword]=useState(''),[remember,setRemember]=useState(true);
  const [username,setUsername]=useState(''),[email,setEmail]=useState(''),[newPassword,setNewPassword]=useState(''),[confirm,setConfirm]=useState(''),[accepted,setAccepted]=useState(false);
  const [serial,setSerial]=useState(''),[error,setError]=useState(''),[notice,setNotice]=useState(''),[busy,setBusy]=useState(false);
