@@ -1,0 +1,6 @@
+export type Person={prefix:string;name:string;lastname:string;age:string;id_card:string;nationality:string;occupation:string;address:string;phone:string;statement:string;arrest_case:boolean;duty:string;position:string;station:string};
+export type PropertyItem={item_no:string;item_name:string;quantity:string;unit:string;all_drugs:string;pure_drugs:string;price:string;when?:string};
+export type ImprisonItem={imprison_no:string;imprison_request:string;request_date:string;start_date:string;end_date:string};
+export type MemoRow={date:string;action:string;sign:string};
+export type Profile={rank:string;name:string;lastname:string;position:string;station:string;phone:string;ordinal_number:string;superintendent_rank:string;superintendent_name:string};
+export type CaseData={id?:string;caseid:string;charge:string;law:string;circumstances:string;occur:string;location:string;report1_no:string;report1_date:string;summary_date:string;court:string;evidence_number:string;evidence_date:string;imprison_number:string;accusers:Person[];suspects:Person[];witnesses:Person[];properties:PropertyItem[];imprisonments:ImprisonItem[];memo_rows:MemoRow[];profile:Profile;raw_text:string;extra:Record<string,unknown>};
