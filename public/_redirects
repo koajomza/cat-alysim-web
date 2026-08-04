@@ -1,2 +1,3 @@
-/trial/drugs /index.html 200
+/trial/drugs /trial/drugs/ 301
+/trial/drugs/ /index.html 200
 /trial/drugs/* /index.html 200

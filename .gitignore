@@ -9,6 +9,7 @@ __pycache__/
 *.db
 .venv/
 venv/
+.wrangler/
 
 node_modules/
 dist/
