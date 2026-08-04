@@ -1,5 +1,5 @@
 import {useEffect,useMemo,useState} from 'react';
-import {ArrowRight,BookOpen,CalendarDays,Camera,ChevronDown,CreditCard,Database,Download,FileText,FolderSearch,Link2,LogIn,LogOut,MapPinned,Menu,MessageSquareText,Monitor,Scale,Search,ShieldCheck,Sparkles,UserPlus,UsersRound,WandSparkles,X} from 'lucide-react';
+import {ArrowLeft,ArrowRight,BookOpen,CalendarDays,Camera,ChevronDown,CreditCard,Database,Download,FileText,FolderSearch,Link2,LogIn,LogOut,MapPinned,Menu,MessageSquareText,Monitor,Scale,Search,ShieldCheck,Sparkles,UserPlus,UsersRound,WandSparkles,X} from 'lucide-react';
 import {getCurrentUser,logout,type AuthContext} from './auth';
 
 type PageMode='home'|'program'|'features'|'photoEvidence'|'crimeScene'|'trafficFine';
@@ -18,6 +18,12 @@ const programPages=[
  {id:'program-criminal',icon:FolderSearch,title:'คดีอาญา',text:'หน้าคดีอาญาใช้ดูรายการคดีทั่วไป เช่น ฉ้อโกง ลักทรัพย์ ทำร้ายร่างกาย แล้วเปิดเข้าไปกรอกข้อมูลคดี บุคคล ทรัพย์สิน ฝากขัง แผนที่ และเอกสาร',img:'/screenshots/app/criminal-list.png'},
  {id:'program-drugs',icon:Database,title:'คดียาเสพติด',text:'หน้าคดียาเสพติดแยกสีและข้อมูลเฉพาะคดี เช่น ของกลาง น้ำหนักยา ผลตรวจ คำให้การ และเอกสารที่ต้องใช้ในสำนวน',img:'/screenshots/app/drugs-list.png'},
  {id:'program-traffic',icon:MapPinned,title:'คดีจราจร',text:'หน้าคดีจราจรใช้กับคู่กรณี จุดเกิดเหตุ ภาพถ่าย รถ เส้นทาง และการเปรียบเทียบปรับ จึงใช้ภาพแผนที่เกิดเหตุที่มีรถเป็นตัวอย่างหลัก',img:'/screenshots/app/traffic-list.png'}
+];
+
+const programMockups=[
+ {id:'program-criminal',tone:'blue',icon:FolderSearch,title:'คดีอาญา',label:'CIVIL MOCKUP',text:'ชุดภาพ mockup สำหรับคดีอาญา วางไว้ 5 หน้า ตั้งแต่รายการคดี ข้อมูลคดี บุคคล ทรัพย์สิน และแผนที่เกิดเหตุ วันหลังเอารูปจริงมาทับ civil1 ถึง civil5 ได้เลย',images:['civil1.png','civil2.png','civil3.png','civil4.png','civil5.png']},
+ {id:'program-drugs',tone:'amber',icon:Database,title:'คดียาเสพติด',label:'DRUGS MOCKUP',text:'ชุดภาพ mockup สำหรับคดียาเสพติด วางไว้ 5 หน้าเป็นตัวแทน flow หลักของงานยาเสพติด เปลี่ยนรูปทีหลังได้ด้วยชื่อ drugs1 ถึง drugs5',images:['drugs1.png','drugs2.png','drugs3.png','drugs4.png','drugs5.png']},
+ {id:'program-traffic',tone:'green',icon:MapPinned,title:'คดีจราจร',label:'TRAFFIC MOCKUP',text:'ชุดภาพ mockup สำหรับคดีจราจร วางไว้ 5 หน้า เช่น รายการคดี แผนที่เกิดเหตุ ปรับพินัย ภาพประกอบคดี และตารางงาน เปลี่ยนรูปได้ด้วยชื่อ traffic1 ถึง traffic5',images:['traffic1.png','traffic2.png','traffic3.png','traffic4.png','traffic5.png']}
 ];
 
 const featurePages=[
@@ -60,7 +66,9 @@ function HomePage(){
 }
 
 function ProgramPageContent(){
- return <main><section className="subpage-hero"><span>PROGRAM</span><h1>หน้าโปรแกรมของ CAT-ALYSIM</h1><p>แยกเป็นหน้าของตัวเองแล้ว: หน้าโปรแกรมรวม, คดีอาญา, คดียาเสพติด และคดีจราจร พร้อมภาพที่ตรงกับงานแต่ละหมวด</p></section><section id="program" className="marketing-section program-section subpage-section"><div className="program-list">{programPages.map(({id,icon:Icon,title,text,img},i)=><article id={id} className="program-panel" key={id}><div className="program-copy"><span>{String(i+1).padStart(2,'0')} <Icon size={15}/></span><h3>{title}</h3><p>{text}</p><a href="/trial/drugs/">ทดลองหน้านี้ <ArrowRight size={16}/></a></div><div className="program-image"><img src={img}/></div></article>)}</div></section></main>
+ const [slide,setSlide]=useState<{[key:string]:number}>({});
+ const move=(id:string,total:number,step:number)=>setSlide(current=>({ ...current,[id]:((current[id]||0)+step+total)%total }));
+ return <main><section className="subpage-hero"><span>PROGRAM MOCKUP</span><h1>หน้าโปรแกรม แยก mockup ตามประเภทคดี</h1><p>ตอนนี้วางเป็นภาพตัวอย่างก่อน หมวดละ 5 รูป มีปุ่มกลมให้เลื่อนไปมาได้ ภายหลังเปลี่ยนรูปได้ง่ายด้วยการทับไฟล์ชื่อ civil1, drugs1 หรือ traffic1 ตามลำดับ</p></section><section id="program" className="marketing-section program-section subpage-section mockup-section"><div className="program-mockup-list">{programMockups.map(({id,tone,icon:Icon,title,label,text,images})=>{const index=slide[id]||0;const image=`/screenshots/program-mockups/${images[index]}?v=mockup-20260805`;return <article id={id} className={`program-mockup-card ${tone}`} key={id}><div className="program-mockup-copy"><span><Icon size={16}/>{label}</span><h3>{title}</h3><p>{text}</p><div className="mockup-file-name">{images[index]}</div><div className="mockup-dots">{images.map((name,i)=><button key={name} className={i===index?'active':''} onClick={()=>setSlide(current=>({...current,[id]:i}))} aria-label={`${title} รูปที่ ${i+1}`}/>)}</div></div><div className="program-mockup-stage"><button className="mockup-round prev" onClick={()=>move(id,images.length,-1)} aria-label={`เลื่อน ${title} ย้อนกลับ`}><ArrowLeft size={20}/></button><img src={image}/><button className="mockup-round next" onClick={()=>move(id,images.length,1)} aria-label={`เลื่อน ${title} ถัดไป`}><ArrowRight size={20}/></button></div></article>})}</div></section></main>
 }
 
 function FeaturesPageContent(){
