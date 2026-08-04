@@ -1,5 +1,8 @@
 /user / 302
 /user/ / 302
+/payment /payment/ 301
+/payment/ /index.html 200
+/payment/* /index.html 200
 /trial/drugs /trial/drugs/ 301
 /trial/drugs/ /index.html 200
 /trial/drugs/* /index.html 200

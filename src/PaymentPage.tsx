@@ -1,0 +1,5 @@
+import {ArrowLeft,CreditCard,ShieldCheck} from 'lucide-react';
+
+export default function PaymentPage(){
+ return <main className="payment-page"><section className="payment-shell"><a className="payment-back" href="/"><ArrowLeft size={17}/>กลับหน้าแรก</a><div className="payment-hero"><span><ShieldCheck size={16}/> ต้องล็อกอินก่อนเข้าหน้านี้</span><h1>ชำระเงินและต่ออายุ CAT-ALYSIM</h1><p>หน้านี้เตรียมไว้สำหรับแพ็กเกจ ราคา วิธีชำระเงิน ใบเสร็จ และการออก Serial หลังชำระเงินจริง ตอนนี้ยังไม่เปิดรับเงิน</p></div><div className="payment-grid"><article><CreditCard size={28}/><h2>Trial</h2><strong>รอเปิดใช้งาน</strong><p>สำหรับผู้ใช้ทดลอง หลังสมัครและยืนยันตัวตนเรียบร้อย</p></article><article className="featured"><CreditCard size={28}/><h2>Licensed</h2><strong>Coming soon</strong><p>สำหรับเปิดสิทธิ์ใช้งานเต็มรูปแบบ พร้อม Serial และสถานะสมาชิก</p></article><article><CreditCard size={28}/><h2>Team</h2><strong>รอตั้งค่า</strong><p>สำหรับหน่วยงานหรือทีมที่ต้องการจัดการผู้ใช้หลายบัญชี</p></article></div></section></main>
+}

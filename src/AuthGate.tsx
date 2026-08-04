@@ -5,7 +5,7 @@ import {AuthFlowError,getAuthStatus,getCurrentUser,loginTrial,sendPasswordReset,
 type Mode='login'|'signup';
 type SerialMode='trial'|'paid'|null;
 
-export default function AuthGate({children}:{children:React.ReactNode}){
+export default function AuthGate({children,requireLogin=false}:{children:React.ReactNode;requireLogin?:boolean}){
  const authParam=new URLSearchParams(window.location.search).get('auth');
  const forceAuth=authParam==='login'||authParam==='signup';
  const initialMode=(authParam==='signup'?'signup':'login') as Mode;
@@ -13,7 +13,7 @@ export default function AuthGate({children}:{children:React.ReactNode}){
  const [login,setLogin]=useState(localStorage.getItem('cat_alysim_last_login')||''),[password,setPassword]=useState(''),[remember,setRemember]=useState(true);
  const [username,setUsername]=useState(''),[email,setEmail]=useState(''),[newPassword,setNewPassword]=useState(''),[confirm,setConfirm]=useState(''),[accepted,setAccepted]=useState(false);
  const [serial,setSerial]=useState(''),[error,setError]=useState(''),[notice,setNotice]=useState(''),[busy,setBusy]=useState(false);
- useEffect(()=>{getAuthStatus().then(async s=>{setStatus(s);if(!s.auth_required){setAllowed(true);return}if(forceAuth)return;const u=await getCurrentUser();if(u)setAllowed(true)}).catch(e=>setError(e instanceof Error?e.message:'เชื่อมต่อระบบยืนยันตัวตนไม่สำเร็จ'))},[forceAuth]);
+ useEffect(()=>{getAuthStatus().then(async s=>{setStatus(s);if(!s.auth_required&&!requireLogin){setAllowed(true);return}if(forceAuth)return;const u=await getCurrentUser();if(u)setAllowed(true)}).catch(e=>setError(e instanceof Error?e.message:'เชื่อมต่อระบบยืนยันตัวตนไม่สำเร็จ'))},[forceAuth,requireLogin]);
  async function submitLogin(e:React.FormEvent){e.preventDefault();setBusy(true);setError('');setNotice('');try{await loginTrial(login,password);if(remember)localStorage.setItem('cat_alysim_last_login',login);setAllowed(true)}catch(err){if(err instanceof AuthFlowError&&(err.reason==='trial_required'||err.reason==='trial_expired'))setSerialMode(err.reason==='trial_required'?'trial':'paid');setError(err instanceof Error?err.message:'เข้าสู่ระบบไม่สำเร็จ')}finally{setBusy(false)}}
  async function submitSignup(e:React.FormEvent){e.preventDefault();setBusy(true);setError('');setNotice('');try{setNotice(await signupTrial(username,email,newPassword,confirm,accepted));setMode('login');setLogin(username)}catch(err){setError(err instanceof Error?err.message:'สมัครสมาชิกไม่สำเร็จ')}finally{setBusy(false)}}
  async function submitSerial(e:React.FormEvent){e.preventDefault();setBusy(true);setError('');try{if(serialMode==='paid')await verifyPaidSerial(serial);else await verifyTrialSerial(serial);setAllowed(true)}catch(err){setError(err instanceof Error?err.message:'ยืนยัน Serial ไม่สำเร็จ')}finally{setBusy(false)}}
