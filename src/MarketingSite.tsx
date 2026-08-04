@@ -90,7 +90,7 @@ function ProgramMockupCard({item,index,setIndex}:{item:typeof programMockups[num
  const Icon=item.icon;
  const image=`/content/programs/${item.slug}/${active.file}?v=content-20260805`;
  const go=(step:number)=>setIndex((index+step+items.length)%items.length);
- return <article id={item.id} className={`program-mockup-card ${item.tone}`}><div className="program-mockup-copy"><span><Icon size={16}/>{item.label}</span><h3>{item.title}</h3><p>{item.text}</p><div className="mockup-file-name">{active.file} = {active.label}</div><div className="mockup-dots">{items.map((entry,i)=><button key={entry.file} className={i===index?'active':''} onClick={()=>setIndex(i)} aria-label={`${item.title} รูปที่ ${i+1}`}/>)}</div></div><div className="program-mockup-stage"><button className="mockup-round prev" onClick={()=>go(-1)} aria-label={`เลื่อน ${item.title} ย้อนกลับ`}><ArrowLeft size={20}/></button><img src={image}/><button className="mockup-round next" onClick={()=>go(1)} aria-label={`เลื่อน ${item.title} ถัดไป`}><ArrowRight size={20}/></button></div></article>
+ return <article id={item.id} className={`program-mockup-card ${item.tone}`}><div className="program-mockup-copy"><span><Icon size={16}/>{item.label}</span><h3>{item.title}</h3><p className="content-caption">{active.label}</p><div className="mockup-dots">{items.map((entry,i)=><button key={entry.file} className={i===index?'active':''} onClick={()=>setIndex(i)} aria-label={`${item.title} รูปที่ ${i+1}`}/>)}</div></div><div className="program-mockup-stage"><button className="mockup-round prev" onClick={()=>go(-1)} aria-label={`เลื่อน ${item.title} ย้อนกลับ`}><ArrowLeft size={20}/></button><img src={image} alt={active.label}/><button className="mockup-round next" onClick={()=>go(1)} aria-label={`เลื่อน ${item.title} ถัดไป`}><ArrowRight size={20}/></button></div></article>
 }
 
 function FeaturesPageContent(){
@@ -101,7 +101,7 @@ function FeatureRow({feature}:{feature:typeof featurePages[number]}){
  const items=useManifest(`/content/features/${feature.slug}/feature.txt`,fallbackItems(feature.fallback));
  const active=items[0];
  const Icon=feature.icon;
- return <article id={feature.id} className="feature-page-card feature-row-card"><div className="feature-page-image"><img src={`/content/features/${feature.slug}/${active.file}?v=content-20260805`}/></div><div className="feature-page-copy"><span><Icon size={16}/>{feature.short}</span><h3>{feature.title}</h3><p>{feature.text}</p><div className="mockup-file-name">{active.file} = {active.label}</div>{featureLinks[feature.id]&&<a className="feature-detail-link" href={featureLinks[feature.id]}>เปิดหน้าเต็ม <ArrowRight size={15}/></a>}</div></article>
+ return <article id={feature.id} className="feature-page-card feature-row-card"><div className="feature-page-image"><img src={`/content/features/${feature.slug}/${active.file}?v=content-20260805`} alt={active.label}/></div><div className="feature-page-copy"><span><Icon size={16}/>{feature.short}</span><h3>{feature.title}</h3><p className="content-caption">{active.label}</p>{featureLinks[feature.id]&&<a className="feature-detail-link" href={featureLinks[feature.id]}>เปิดหน้าเต็ม <ArrowRight size={15}/></a>}</div></article>
 }
 
 function PhotoEvidencePageContent(){

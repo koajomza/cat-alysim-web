@@ -4,8 +4,11 @@ Programs:
 - content/programs/civil/civil.txt ใช้คู่กับ civil1.png ถึง civil5.png
 - content/programs/drugs/drugs.txt ใช้คู่กับ drugs1.png ถึง drugs5.png
 - content/programs/traffic/traffic.txt ใช้คู่กับ traffic1.png ถึง traffic5.png
+- รูปแบบ: ชื่อไฟล์ = ข้อความที่ให้แสดงบนเว็บ
+- หน้าเว็บจะแสดงเฉพาะข้อความหลังเครื่องหมาย = เช่น "หน้าโปรแกรม"
 
 Features:
 - แต่ละฟีเจอร์มีโฟลเดอร์ของตัวเองใน content/features/
 - แก้ feature.txt ด้วยรูปแบบ: ชื่อไฟล์ = คำอธิบาย
 - เปลี่ยนรูปได้โดยทับไฟล์ feature1.png หรือ feature1.svg ในโฟลเดอร์นั้น
+- หน้าเว็บจะแสดงฟีเจอร์แถวละ 1 รายการ และดึงข้อความจาก feature.txt

@@ -390,6 +390,7 @@
 .program-mockup-card.green .program-mockup-copy>span{background:#e5fbf0;color:#087647}
 .program-mockup-copy h3{margin:5px 0 0;font-size:clamp(34px,3vw,50px);line-height:1.12;color:#071a46}
 .program-mockup-copy p{margin:0;color:#5f6f88;font-size:16px;line-height:1.85}
+.content-caption{font-size:24px!important;line-height:1.45!important;color:#0d2348!important;font-weight:950!important}
 .mockup-file-name{width:max-content;max-width:100%;padding:9px 12px;border:1px dashed #b9c8df;border-radius:12px;background:#f7faff;color:#324864;font-size:13px;font-weight:900}
 .mockup-dots{display:flex;gap:9px;flex-wrap:wrap;margin-top:5px}
 .mockup-dots button{width:13px;height:13px;border:0;border-radius:50%;background:#c4d1e4;cursor:pointer;transition:.18s}
