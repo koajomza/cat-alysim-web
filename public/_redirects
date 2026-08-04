@@ -1,3 +1,5 @@
+/user / 302
+/user/ / 302
 /trial/drugs /trial/drugs/ 301
 /trial/drugs/ /index.html 200
 /trial/drugs/* /index.html 200
