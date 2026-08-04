@@ -456,6 +456,22 @@
 .payment-grid article{min-height:260px;border:1px solid #d9e4f1;border-radius:24px;background:#fff;padding:26px;box-shadow:0 18px 46px rgba(17,40,77,.08)}
 .payment-grid article.featured{border-color:#8aa4ff;background:linear-gradient(180deg,#fff,#f2f6ff)}
 .payment-grid svg{color:#2458ff}.payment-grid h2{font-size:27px;margin:20px 0 8px}.payment-grid strong{font-size:22px;color:#174ad4}.payment-grid p{color:#66758d;line-height:1.7}
+.payment-layout{display:grid;grid-template-columns:minmax(0,1fr) 390px;gap:24px;align-items:stretch}
+.payment-copy,.license-card,.payment-steps article{border:1px solid #d9e4f1;background:#fff;border-radius:26px;box-shadow:0 18px 48px rgba(17,40,77,.08)}
+.payment-copy{padding:44px;display:grid;align-content:center}
+.payment-copy>span{width:max-content;display:inline-flex;align-items:center;gap:8px;border-radius:999px;background:#eaf0ff;color:#2458ff;padding:8px 12px;font-size:12px;font-weight:950}
+.payment-copy h1{margin:22px 0 12px;font-size:clamp(44px,5vw,70px);line-height:1.05;color:#071a46}
+.payment-copy p{max-width:680px;margin:0;color:#62718a;font-size:17px;line-height:1.8}
+.payment-actions{display:flex;flex-wrap:wrap;gap:12px;margin-top:30px}
+.payment-primary,.payment-secondary{min-height:48px;border-radius:13px;padding:0 18px;display:inline-flex;align-items:center;justify-content:center;gap:9px;font-weight:900;text-decoration:none}
+.payment-primary{background:#2458ff;color:#fff;box-shadow:0 13px 28px #2458ff30}.payment-secondary{background:#fff;color:#152846;border:1px solid #ccd8e8}
+.license-card{padding:28px;background:linear-gradient(180deg,#fff,#f4f7ff)}
+.license-card-top{display:flex;align-items:center;justify-content:space-between;color:#2458ff}.license-card-top span{font-size:12px;font-weight:950;letter-spacing:.12em}
+.license-card h2{margin:24px 0 8px;font-size:48px;line-height:1;color:#071a46}.license-card p{margin:0;color:#60708a;line-height:1.65}
+.license-card ul{list-style:none;margin:24px 0;padding:0;display:grid;gap:11px}.license-card li{display:flex;align-items:center;gap:9px;color:#1d3150;font-weight:850}.license-card li svg{color:#20a46d;flex:none}
+.license-card small{display:flex;align-items:center;gap:7px;padding-top:18px;border-top:1px solid #dfe7f2;color:#66768e;font-weight:850}
+.payment-steps{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;margin-top:20px}.payment-steps article{padding:22px}.payment-steps svg{color:#2458ff}.payment-steps h3{margin:16px 0 7px;color:#071a46;font-size:21px}.payment-steps p{margin:0;color:#62718a;line-height:1.65;font-size:14px}
+.download-exe{font-size:17px;min-height:56px}
 .home-choice-section{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px;padding:72px max(28px,calc((100vw - 1440px)/2));background:#fff}
 .home-choice-section>a{min-height:230px;position:relative;padding:28px;border:1px solid #d9e4f1;border-radius:24px;background:linear-gradient(180deg,#fff,#f8fbff);box-shadow:0 16px 42px rgba(17,40,77,.07);color:#10203c;display:grid;align-content:start;gap:12px;transition:.22s}
 .home-choice-section>a:hover{transform:translateY(-5px);border-color:#95abff;box-shadow:0 24px 56px rgba(36,79,190,.13)}
@@ -472,6 +488,7 @@
 @media(max-width:1250px){.product-nav{grid-template-columns:210px 1fr auto}.product-nav nav{gap:16px}.nav-dropdown.wide>div{grid-template-columns:1fr;width:360px}.program-panel,.program-panel:nth-child(even),.program-mockup-card,.program-mockup-card:nth-child(even){grid-template-columns:1fr}.program-panel:nth-child(even) .program-copy,.program-mockup-card:nth-child(even) .program-mockup-copy{order:0}}
 @media(max-width:1100px){.media-page,.media-gallery article,.feature-row-card,.feature-row-card:nth-child(even){grid-template-columns:1fr}.media-gallery{grid-template-columns:1fr}.feature-row-card:nth-child(even) .feature-page-image{order:0}.feature-row-card .feature-page-image,.feature-row-card:nth-child(even) .feature-page-image{border-left:0;border-right:0;border-bottom:1px solid #e2eaf4}}
 @media(max-width:900px){.feature-page-grid,.payment-grid,.home-choice-section{grid-template-columns:1fr}.payment-teaser{display:grid;padding:34px 24px}.payment-teaser h2{font-size:32px}}
+@media(max-width:900px){.payment-layout,.payment-steps{grid-template-columns:1fr}.payment-copy{padding:28px}.license-card h2{font-size:40px}.payment-primary,.payment-secondary{width:100%}}
 @media(max-width:800px){.nav-dropdown>div{position:static;transform:none!important;opacity:1;pointer-events:auto;width:auto!important;box-shadow:none;border:0;background:#f6f8fc;margin:2px 0 8px}.product-nav nav.open{max-height:calc(100vh - 70px);overflow:auto}.program-panel,.program-mockup-card{padding:14px}.program-copy h3,.program-mockup-copy h3{font-size:32px}.program-mockup-stage,.program-mockup-stage img{min-height:280px}.mockup-round{width:44px;height:44px}}
 
 /* Mobile public website */
