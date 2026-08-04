@@ -3,6 +3,7 @@ import {ArrowLeft,ArrowRight,BookOpen,CalendarDays,Camera,ChevronDown,CreditCard
 import {getCurrentUser,logout,type AuthContext} from './auth';
 
 type PageMode='home'|'program'|'features'|'photoEvidence'|'crimeScene'|'trafficFine';
+type VisualItem={file:string;label:string};
 
 const release={
  version:'2026.08.05.2',
@@ -21,27 +22,27 @@ const programPages=[
 ];
 
 const programMockups=[
- {id:'program-criminal',tone:'blue',icon:FolderSearch,title:'คดีอาญา',label:'CIVIL MOCKUP',text:'ชุดภาพ mockup สำหรับคดีอาญา วางไว้ 5 หน้า ตั้งแต่รายการคดี ข้อมูลคดี บุคคล ทรัพย์สิน และแผนที่เกิดเหตุ วันหลังเอารูปจริงมาทับ civil1 ถึง civil5 ได้เลย',images:['civil1.png','civil2.png','civil3.png','civil4.png','civil5.png']},
- {id:'program-drugs',tone:'amber',icon:Database,title:'คดียาเสพติด',label:'DRUGS MOCKUP',text:'ชุดภาพ mockup สำหรับคดียาเสพติด วางไว้ 5 หน้าเป็นตัวแทน flow หลักของงานยาเสพติด เปลี่ยนรูปทีหลังได้ด้วยชื่อ drugs1 ถึง drugs5',images:['drugs1.png','drugs2.png','drugs3.png','drugs4.png','drugs5.png']},
- {id:'program-traffic',tone:'green',icon:MapPinned,title:'คดีจราจร',label:'TRAFFIC MOCKUP',text:'ชุดภาพ mockup สำหรับคดีจราจร วางไว้ 5 หน้า เช่น รายการคดี แผนที่เกิดเหตุ ปรับพินัย ภาพประกอบคดี และตารางงาน เปลี่ยนรูปได้ด้วยชื่อ traffic1 ถึง traffic5',images:['traffic1.png','traffic2.png','traffic3.png','traffic4.png','traffic5.png']}
+ {id:'program-criminal',slug:'civil',tone:'blue',icon:FolderSearch,title:'คดีอาญา',label:'CIVIL MOCKUP',text:'ชุดภาพ mockup สำหรับคดีอาญา วางไว้ 5 หน้า ตั้งแต่รายการคดี ข้อมูลคดี บุคคล ทรัพย์สิน และแผนที่เกิดเหตุ วันหลังแก้ได้ที่ content/programs/civil/civil.txt',fallback:[['civil1.png','หน้าโปรแกรม'],['civil2.png','หน้าสร้างข้อมูลคดี'],['civil3.png','หน้าข้อมูลบุคคล'],['civil4.png','หน้าทรัพย์สินและของกลาง'],['civil5.png','หน้าแผนที่เกิดเหตุ']]},
+ {id:'program-drugs',slug:'drugs',tone:'amber',icon:Database,title:'คดียาเสพติด',label:'DRUGS MOCKUP',text:'ชุดภาพ mockup สำหรับคดียาเสพติด วางไว้ 5 หน้าเป็นตัวแทน flow หลักของงานยาเสพติด วันหลังแก้ได้ที่ content/programs/drugs/drugs.txt',fallback:[['drugs1.png','หน้าโปรแกรมคดียาเสพติด'],['drugs2.png','หน้าข้อหาและกฎหมาย'],['drugs3.png','หน้าคำให้การ'],['drugs4.png','หน้าสร้างเอกสาร'],['drugs5.png','หน้า OCR เอกสาร']]},
+ {id:'program-traffic',slug:'traffic',tone:'green',icon:MapPinned,title:'คดีจราจร',label:'TRAFFIC MOCKUP',text:'ชุดภาพ mockup สำหรับคดีจราจร วางไว้ 5 หน้า เช่น รายการคดี แผนที่เกิดเหตุ ปรับพินัย ภาพประกอบคดี และตารางงาน วันหลังแก้ได้ที่ content/programs/traffic/traffic.txt',fallback:[['traffic1.png','หน้าโปรแกรมคดีจราจร'],['traffic2.png','หน้าแผนที่เกิดเหตุรถชน'],['traffic3.png','หน้าปรับพินัย'],['traffic4.png','หน้าภาพถ่ายประกอบคดี'],['traffic5.png','หน้าตารางงาน']]}
 ];
 
 const featurePages=[
- {id:'feature-arrest',icon:Sparkles,title:'จับกุมสู่คดี',short:'โยนบันทึกจับกุมแล้วสร้างคดี',text:'เอาบันทึกจับกุมหรือข้อความคดีใส่เข้ามา แล้วให้ระบบช่วยอ่านข้อมูลสำคัญเพื่อตั้งต้นคดี ลดเวลาพิมพ์ตั้งแต่หน้าแรกของสำนวน',img:'/screenshots/mockups/arrest-import.svg?v=mock-20260805'},
- {id:'feature-linkage',icon:Link2,title:'Linkage Center',short:'เพิ่มบุคคลจากข้อมูลเดิม',text:'ค้นและดึงข้อมูลบุคคลที่เคยใช้แล้วมาเป็นผู้กล่าวหา ผู้ต้องหา หรือพยานในคดีใหม่ ทำให้ข้อมูลชื่อและรายละเอียดไม่หลุดกัน',img:'/screenshots/app/criminal-people.png'},
- {id:'feature-case-info',icon:FileText,title:'Case Info Builder',short:'กรอกข้อมูลคดีเป็นหมวด',text:'หน้าข้อมูลคดีรวมช่องสำคัญ เช่น อำนาจสั่งคดี อำนาจศาล อัยการ ข้อหา และความเห็นคดี เพื่อให้เอกสารปลายทางมีข้อมูลครบ',img:'/screenshots/app/criminal-info.png'},
- {id:'feature-book',icon:BookOpen,title:'Book Tab Document',short:'สร้างเอกสารจากแท็บ Book',text:'เลือกแม่แบบเอกสาร กรอกข้อมูลตามช่อง แล้วสร้างไฟล์ Word จากข้อมูลคดี ไม่ต้องไล่คัดลอกทีละฉบับ',img:'/screenshots/app/forms.png'},
- {id:'feature-property',icon:Database,title:'Evidence & Property',short:'ทรัพย์สินและของกลาง',text:'เก็บเลขที่ยึด วันยึด รายการของกลาง และทรัพย์ถูกประทุษร้ายไว้เป็นตารางเดียว ตรวจง่ายและนำไปออกเอกสารได้',img:'/screenshots/app/criminal-property.png'},
- {id:'feature-imprison',icon:CalendarDays,title:'Custody Timeline',short:'ฝากขังและประกัน',text:'คำนวณรอบฝากขัง เก็บคำร้อง ศาล สถานะผู้ต้องหา และข้อมูลประกัน ช่วยไม่ให้พลาดวันสำคัญ',img:'/screenshots/app/criminal-imprison.png'},
- {id:'feature-criminal-map',icon:MapPinned,title:'Crime Scene Map',short:'แผนที่เกิดเหตุคดีอาญา',text:'สำหรับคดีอาญา ใช้วาดห้อง จุดพบของ จุดเกิดเหตุ และตำแหน่งสำคัญในบ้านหรือสถานที่เกิดเหตุ',img:'/screenshots/app/criminal-scene-map.png'},
- {id:'feature-traffic-map',icon:MapPinned,title:'Traffic Scene Map',short:'แผนที่เกิดเหตุคดีจราจร',text:'สำหรับคดีจราจร ใช้วาดถนน รถ จุดชน กรวย และทิศทางการเคลื่อนที่ เพื่อประกอบสำนวนให้เห็นภาพชัด',img:'/screenshots/app/traffic-scene-map.png'},
- {id:'feature-traffic-fine',icon:Scale,title:'Traffic Fine Order',short:'ปรับพินัยคดีจราจร',text:'บันทึกผู้ถูกกล่าวหา สรุปพฤติการณ์ เลขหนังสือแจ้งข้อกล่าวหา คำสั่งปรับ ค่าปรับ วิธีส่ง และสถานะการชำระในหน้าเดียว',img:'/screenshots/app/traffic-fine.png'},
- {id:'feature-photo',icon:Camera,title:'Photo Evidence',short:'ภาพถ่ายประกอบคดี',text:'ลากรูปเข้าโปรแกรม จัดลำดับ ใส่คำอธิบาย แล้วสร้างเอกสารภาพถ่ายประกอบคดีเป็นไฟล์ Word ได้ทันที',img:'/screenshots/app/photo-evidence-real.png'},
- {id:'feature-community',icon:UsersRound,title:'CAT Exchange',short:'คอมมูนิตี้แบ่งปันฟอร์ม',text:'แชร์ชุดคำถาม ข้อหา ฟอร์ม หรือชุดข้อมูลตัวอย่างให้ทีมใช้ต่อ ช่วยให้ของดีไม่หายไปกับเครื่องใครเครื่องหนึ่ง',img:'/screenshots/app/community.png'},
- {id:'feature-chat',icon:MessageSquareText,title:'Team Chat Workspace',short:'แชทและส่งไฟล์ในทีม',text:'คุยงาน ส่งไฟล์ เปิดไฟล์ และเก็บประวัติการสื่อสารไว้ใกล้กับพื้นที่ทำงานของโปรแกรม',img:'/screenshots/app/chat.png'},
- {id:'feature-ocr',icon:WandSparkles,title:'Typhoon OCR',short:'อ่านรูปและ PDF เป็นข้อความ',text:'อัปโหลดภาพหรือ PDF แล้วถอดเป็นข้อความ ตาราง หรือ Markdown เพื่อนำไปตรวจทานและใช้ต่อในเอกสาร',img:'/screenshots/app/ocr.png'},
- {id:'feature-calendar',icon:CalendarDays,title:'Duty Calendar',short:'ตารางเวรและนัดหมาย',text:'ดูเวร งานคดี วันนัด และสิ่งที่ต้องทำเป็นปฏิทินรายเดือน กันลืมงานสำคัญ',img:'/screenshots/app/calendar.png'},
- {id:'feature-search',icon:Search,title:'Deep Search',short:'ค้นลึกทั้งระบบ',text:'ค้นจากเลขคดี ชื่อคน ข้อหา memo คำให้การ และสถานที่เกิดเหตุ แล้วกดกลับไปยังคดีที่เกี่ยวข้องได้ทันที',img:'/screenshots/app/deep-search.png'}
+ {id:'feature-arrest',slug:'arrest-import',icon:Sparkles,title:'จับกุมสู่คดี',short:'โยนบันทึกจับกุมแล้วสร้างคดี',text:'เอาบันทึกจับกุมหรือข้อความคดีใส่เข้ามา แล้วให้ระบบช่วยอ่านข้อมูลสำคัญเพื่อตั้งต้นคดี ลดเวลาพิมพ์ตั้งแต่หน้าแรกของสำนวน',fallback:[['feature1.svg','โยนบันทึกจับกุมแล้วให้ระบบช่วยตั้งต้นคดี']]},
+ {id:'feature-linkage',slug:'linkage-center',icon:Link2,title:'Linkage Center',short:'เพิ่มบุคคลจากข้อมูลเดิม',text:'ค้นและดึงข้อมูลบุคคลที่เคยใช้แล้วมาเป็นผู้กล่าวหา ผู้ต้องหา หรือพยานในคดีใหม่ ทำให้ข้อมูลชื่อและรายละเอียดไม่หลุดกัน',fallback:[['feature1.png','เพิ่มบุคคลจากข้อมูลเดิมหรือ Linkage Center']]},
+ {id:'feature-case-info',slug:'case-info',icon:FileText,title:'Case Info Builder',short:'กรอกข้อมูลคดีเป็นหมวด',text:'หน้าข้อมูลคดีรวมช่องสำคัญ เช่น อำนาจสั่งคดี อำนาจศาล อัยการ ข้อหา และความเห็นคดี เพื่อให้เอกสารปลายทางมีข้อมูลครบ',fallback:[['feature1.png','กรอกข้อมูลคดีหลักให้ครบก่อนออกเอกสาร']]},
+ {id:'feature-book',slug:'book-document',icon:BookOpen,title:'Book Tab Document',short:'สร้างเอกสารจากแท็บ Book',text:'เลือกแม่แบบเอกสาร กรอกข้อมูลตามช่อง แล้วสร้างไฟล์ Word จากข้อมูลคดี ไม่ต้องไล่คัดลอกทีละฉบับ',fallback:[['feature1.png','สร้างเอกสารจากแม่แบบ Book Tab']]},
+ {id:'feature-property',slug:'evidence-property',icon:Database,title:'Evidence & Property',short:'ทรัพย์สินและของกลาง',text:'เก็บเลขที่ยึด วันยึด รายการของกลาง และทรัพย์ถูกประทุษร้ายไว้เป็นตารางเดียว ตรวจง่ายและนำไปออกเอกสารได้',fallback:[['feature1.png','เก็บรายการทรัพย์สิน ของกลาง และหลักฐาน']]},
+ {id:'feature-imprison',slug:'custody-timeline',icon:CalendarDays,title:'Custody Timeline',short:'ฝากขังและประกัน',text:'คำนวณรอบฝากขัง เก็บคำร้อง ศาล สถานะผู้ต้องหา และข้อมูลประกัน ช่วยไม่ให้พลาดวันสำคัญ',fallback:[['feature1.png','จัดรอบฝากขัง ประกัน และวันสำคัญของคดี']]},
+ {id:'feature-criminal-map',slug:'crime-scene-map',icon:MapPinned,title:'Crime Scene Map',short:'แผนที่เกิดเหตุคดีอาญา',text:'สำหรับคดีอาญา ใช้วาดห้อง จุดพบของ จุดเกิดเหตุ และตำแหน่งสำคัญในบ้านหรือสถานที่เกิดเหตุ',fallback:[['feature1.png','วาดแผนที่เกิดเหตุสำหรับคดีอาญา']]},
+ {id:'feature-traffic-map',slug:'traffic-scene-map',icon:MapPinned,title:'Traffic Scene Map',short:'แผนที่เกิดเหตุคดีจราจร',text:'สำหรับคดีจราจร ใช้วาดถนน รถ จุดชน กรวย และทิศทางการเคลื่อนที่ เพื่อประกอบสำนวนให้เห็นภาพชัด',fallback:[['feature1.png','วาดแผนที่เกิดเหตุรถ ถนน จุดชน และทิศทาง']]},
+ {id:'feature-traffic-fine',slug:'traffic-fine-order',icon:Scale,title:'Traffic Fine Order',short:'ปรับพินัยคดีจราจร',text:'บันทึกผู้ถูกกล่าวหา สรุปพฤติการณ์ เลขหนังสือแจ้งข้อกล่าวหา คำสั่งปรับ ค่าปรับ วิธีส่ง และสถานะการชำระในหน้าเดียว',fallback:[['feature1.png','จัดการข้อมูลปรับพินัยและสถานะชำระค่าปรับ']]},
+ {id:'feature-photo',slug:'photo-evidence',icon:Camera,title:'Photo Evidence',short:'ภาพถ่ายประกอบคดี',text:'ลากรูปเข้าโปรแกรม จัดลำดับ ใส่คำอธิบาย แล้วสร้างเอกสารภาพถ่ายประกอบคดีเป็นไฟล์ Word ได้ทันที',fallback:[['feature1.png','จัดรูปภาพและคำอธิบายเพื่อสร้างเอกสารภาพถ่ายประกอบคดี']]},
+ {id:'feature-community',slug:'community',icon:UsersRound,title:'CAT Exchange',short:'คอมมูนิตี้แบ่งปันฟอร์ม',text:'แชร์ชุดคำถาม ข้อหา ฟอร์ม หรือชุดข้อมูลตัวอย่างให้ทีมใช้ต่อ ช่วยให้ของดีไม่หายไปกับเครื่องใครเครื่องหนึ่ง',fallback:[['feature1.png','คอมมูนิตี้สำหรับแชร์ฟอร์ม ข้อหา และชุดข้อมูลให้ทีม']]},
+ {id:'feature-chat',slug:'chat',icon:MessageSquareText,title:'Team Chat Workspace',short:'แชทและส่งไฟล์ในทีม',text:'คุยงาน ส่งไฟล์ เปิดไฟล์ และเก็บประวัติการสื่อสารไว้ใกล้กับพื้นที่ทำงานของโปรแกรม',fallback:[['feature1.png','แชท ส่งไฟล์ และคุยงานในทีม']]},
+ {id:'feature-ocr',slug:'ocr',icon:WandSparkles,title:'Typhoon OCR',short:'อ่านรูปและ PDF เป็นข้อความ',text:'อัปโหลดภาพหรือ PDF แล้วถอดเป็นข้อความ ตาราง หรือ Markdown เพื่อนำไปตรวจทานและใช้ต่อในเอกสาร',fallback:[['feature1.png','OCR อ่านรูปและ PDF เป็นข้อความ ตาราง หรือ Markdown']]},
+ {id:'feature-calendar',slug:'calendar',icon:CalendarDays,title:'Duty Calendar',short:'ตารางเวรและนัดหมาย',text:'ดูเวร งานคดี วันนัด และสิ่งที่ต้องทำเป็นปฏิทินรายเดือน กันลืมงานสำคัญ',fallback:[['feature1.png','ตารางเวร นัดหมาย และสิ่งที่ต้องทำรายเดือน']]},
+ {id:'feature-search',slug:'deep-search',icon:Search,title:'Deep Search',short:'ค้นลึกทั้งระบบ',text:'ค้นจากเลขคดี ชื่อคน ข้อหา memo คำให้การ และสถานที่เกิดเหตุ แล้วกดกลับไปยังคดีที่เกี่ยวข้องได้ทันที',fallback:[['feature1.png','ค้นลึกจากเลขคดี ชื่อคน ข้อหา memo และสถานที่']]}
 ];
 
 const featureLinks:{[key:string]:string}={
@@ -53,6 +54,19 @@ const featureLinks:{[key:string]:string}={
 
 const downloadFacts=['เวอร์ชันล่าสุด '+release.version,'Installer bootstrap '+release.installerVersion,'ลิงก์ตรงจาก GitHub Release'];
 function userLabel(ctx:AuthContext|null){const p=ctx?.profile||{};const value=p.username||p.display_name||p.full_name||ctx?.user.email;return typeof value==='string'&&value?value.split('@')[0]:'ผู้ใช้'}
+const fallbackItems=(items:string[][]):VisualItem[]=>items.map(([file,label])=>({file,label}));
+function parseManifest(text:string,fallback:VisualItem[]){
+ const parsed=text.split(/\r?\n/).map(line=>line.trim()).filter(line=>line&&!line.startsWith('#')).map(line=>{
+  const [file,...rest]=line.split('=');
+  return {file:(file||'').trim(),label:rest.join('=').trim()};
+ }).filter(item=>item.file&&item.label);
+ return parsed.length?parsed:fallback;
+}
+function useManifest(path:string,fallback:VisualItem[]){
+ const [items,setItems]=useState(fallback);
+ useEffect(()=>{let alive=true;fetch(`${path}?v=${Date.now()}`).then(r=>r.ok?r.text():Promise.reject()).then(text=>{if(alive)setItems(parseManifest(text,fallback))}).catch(()=>{});return()=>{alive=false}},[path]);
+ return items;
+}
 
 function Header({auth,name,userMenu,setUserMenu,menu,setMenu,signOut}:{auth:AuthContext|null;name:string;userMenu:boolean;setUserMenu:(v:boolean|((v:boolean)=>boolean))=>void;menu:boolean;setMenu:(v:boolean|((v:boolean)=>boolean))=>void;signOut:()=>void}){
  const authActions=auth?<div className="user-nav"><button className="user-nav-button polished" onClick={()=>setUserMenu(v=>!v)}><span className="user-mini-avatar">{name.slice(0,1).toUpperCase()}</span><span className="user-mini-copy"><b>{name}</b><small>บัญชีพร้อมใช้งาน</small></span><ChevronDown size={15}/></button>{userMenu&&<div className="user-dropdown"><a href="/trial/drugs/"><FileText size={16}/>เข้า Trial Drugs</a><a href="/payment/"><CreditCard size={16}/>ชำระเงิน</a><a href="/#download"><Download size={16}/>ดาวน์โหลดโปรแกรม</a><button onClick={signOut}><LogOut size={16}/>ออกจากระบบ</button></div>}</div>:<><a className="nav-login" href="/trial/drugs/?auth=login"><LogIn size={16}/>เข้าสู่ระบบ</a><a className="nav-trial" href="/trial/drugs/?auth=signup"><UserPlus size={16}/>สมัครสมาชิก</a></>;
@@ -67,12 +81,27 @@ function HomePage(){
 
 function ProgramPageContent(){
  const [slide,setSlide]=useState<{[key:string]:number}>({});
- const move=(id:string,total:number,step:number)=>setSlide(current=>({ ...current,[id]:((current[id]||0)+step+total)%total }));
- return <main><section className="subpage-hero"><span>PROGRAM MOCKUP</span><h1>หน้าโปรแกรม แยก mockup ตามประเภทคดี</h1><p>ตอนนี้วางเป็นภาพตัวอย่างก่อน หมวดละ 5 รูป มีปุ่มกลมให้เลื่อนไปมาได้ ภายหลังเปลี่ยนรูปได้ง่ายด้วยการทับไฟล์ชื่อ civil1, drugs1 หรือ traffic1 ตามลำดับ</p></section><section id="program" className="marketing-section program-section subpage-section mockup-section"><div className="program-mockup-list">{programMockups.map(({id,tone,icon:Icon,title,label,text,images})=>{const index=slide[id]||0;const image=`/screenshots/program-mockups/${images[index]}?v=mockup-20260805`;return <article id={id} className={`program-mockup-card ${tone}`} key={id}><div className="program-mockup-copy"><span><Icon size={16}/>{label}</span><h3>{title}</h3><p>{text}</p><div className="mockup-file-name">{images[index]}</div><div className="mockup-dots">{images.map((name,i)=><button key={name} className={i===index?'active':''} onClick={()=>setSlide(current=>({...current,[id]:i}))} aria-label={`${title} รูปที่ ${i+1}`}/>)}</div></div><div className="program-mockup-stage"><button className="mockup-round prev" onClick={()=>move(id,images.length,-1)} aria-label={`เลื่อน ${title} ย้อนกลับ`}><ArrowLeft size={20}/></button><img src={image}/><button className="mockup-round next" onClick={()=>move(id,images.length,1)} aria-label={`เลื่อน ${title} ถัดไป`}><ArrowRight size={20}/></button></div></article>})}</div></section></main>
+ return <main><section className="subpage-hero"><span>PROGRAM MOCKUP</span><h1>หน้าโปรแกรม แยก mockup ตามประเภทคดี</h1><p>ตอนนี้วางเป็นภาพตัวอย่างก่อน หมวดละ 5 รูป มีปุ่มกลมให้เลื่อนไปมาได้ ภายหลังเปลี่ยนรูปและข้อความได้จากโฟลเดอร์ content/programs โดยตรง</p></section><section id="program" className="marketing-section program-section subpage-section mockup-section"><div className="program-mockup-list">{programMockups.map(item=><ProgramMockupCard key={item.id} item={item} index={slide[item.id]||0} setIndex={i=>setSlide(current=>({...current,[item.id]:i}))}/>)}</div></section></main>
+}
+
+function ProgramMockupCard({item,index,setIndex}:{item:typeof programMockups[number];index:number;setIndex:(i:number)=>void}){
+ const items=useManifest(`/content/programs/${item.slug}/${item.slug}.txt`,fallbackItems(item.fallback));
+ const active=items[index%items.length]||items[0];
+ const Icon=item.icon;
+ const image=`/content/programs/${item.slug}/${active.file}?v=content-20260805`;
+ const go=(step:number)=>setIndex((index+step+items.length)%items.length);
+ return <article id={item.id} className={`program-mockup-card ${item.tone}`}><div className="program-mockup-copy"><span><Icon size={16}/>{item.label}</span><h3>{item.title}</h3><p>{item.text}</p><div className="mockup-file-name">{active.file} = {active.label}</div><div className="mockup-dots">{items.map((entry,i)=><button key={entry.file} className={i===index?'active':''} onClick={()=>setIndex(i)} aria-label={`${item.title} รูปที่ ${i+1}`}/>)}</div></div><div className="program-mockup-stage"><button className="mockup-round prev" onClick={()=>go(-1)} aria-label={`เลื่อน ${item.title} ย้อนกลับ`}><ArrowLeft size={20}/></button><img src={image}/><button className="mockup-round next" onClick={()=>go(1)} aria-label={`เลื่อน ${item.title} ถัดไป`}><ArrowRight size={20}/></button></div></article>
 }
 
 function FeaturesPageContent(){
- return <main><section className="subpage-hero"><span>FEATURES</span><h1>ฟีเจอร์สำคัญที่แยกดูได้ทีละอย่าง</h1><p>แต่ละฟีเจอร์มีชื่อ รูป และคำอธิบายชัดเจน กดจาก dropdown แล้วกระโดดมาดูจุดนั้นได้ทันที</p></section><section id="features" className="marketing-section feature-page-section subpage-section"><div className="feature-page-grid">{featurePages.map(({id,icon:Icon,title,short,text,img})=><article id={id} key={id} className="feature-page-card"><div className="feature-page-image"><img src={img}/></div><div className="feature-page-copy"><span><Icon size={16}/>{short}</span><h3>{title}</h3><p>{text}</p>{featureLinks[id]&&<a className="feature-detail-link" href={featureLinks[id]}>เปิดหน้าเต็ม <ArrowRight size={15}/></a>}</div></article>)}</div></section></main>
+ return <main><section className="subpage-hero"><span>FEATURES</span><h1>ฟีเจอร์สำคัญ แสดงแถวละหนึ่งฟีเจอร์</h1><p>แต่ละฟีเจอร์มีโฟลเดอร์ของตัวเองใน content/features แก้รูปและคำอธิบายได้จาก feature.txt แล้วหน้านี้จะอ่านมาแสดง</p></section><section id="features" className="marketing-section feature-page-section subpage-section"><div className="feature-page-grid feature-row-grid">{featurePages.map(feature=><FeatureRow key={feature.id} feature={feature}/>)}</div></section></main>
+}
+
+function FeatureRow({feature}:{feature:typeof featurePages[number]}){
+ const items=useManifest(`/content/features/${feature.slug}/feature.txt`,fallbackItems(feature.fallback));
+ const active=items[0];
+ const Icon=feature.icon;
+ return <article id={feature.id} className="feature-page-card feature-row-card"><div className="feature-page-image"><img src={`/content/features/${feature.slug}/${active.file}?v=content-20260805`}/></div><div className="feature-page-copy"><span><Icon size={16}/>{feature.short}</span><h3>{feature.title}</h3><p>{feature.text}</p><div className="mockup-file-name">{active.file} = {active.label}</div>{featureLinks[feature.id]&&<a className="feature-detail-link" href={featureLinks[feature.id]}>เปิดหน้าเต็ม <ArrowRight size={15}/></a>}</div></article>
 }
 
 function PhotoEvidencePageContent(){

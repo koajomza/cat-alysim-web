@@ -1,0 +1,1 @@
+feature1.png = OCR อ่านรูปและ PDF เป็นข้อความ ตาราง หรือ Markdown

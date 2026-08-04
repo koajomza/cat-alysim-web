@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1180" height="760" viewBox="0 0 1180 760">
+  <defs><linearGradient id="g" x1="0" x2="1" y1="0" y2="1"><stop stop-color="#eaf1ff"/><stop offset="1" stop-color="#fff"/></linearGradient><filter id="s"><feDropShadow dx="0" dy="18" stdDeviation="22" flood-color="#17335f" flood-opacity=".14"/></filter></defs>
+  <rect width="1180" height="760" rx="34" fill="url(#g)"/>
+  <rect x="58" y="54" width="1064" height="652" rx="28" fill="#fff" filter="url(#s)"/>
+  <rect x="58" y="54" width="1064" height="90" rx="28" fill="#071a46"/>
+  <text x="96" y="110" font-family="Segoe UI, Tahoma" font-size="30" font-weight="900" fill="#fff">วางบันทึกจับกุม แล้วสร้างคดี</text>
+  <rect x="96" y="190" width="442" height="440" rx="22" fill="#f8fbff" stroke="#c8d8f0" stroke-dasharray="10 10"/>
+  <text x="148" y="372" font-family="Segoe UI, Tahoma" font-size="30" font-weight="900" fill="#2458ff">ลากไฟล์ DOCX / TXT</text>
+  <text x="148" y="416" font-family="Segoe UI, Tahoma" font-size="20" fill="#60718a">ระบบอ่านเลขคดี ชื่อคน ข้อหา เวลา และสถานที่</text>
+  <path d="M590 382h130" stroke="#2458ff" stroke-width="12" stroke-linecap="round"/><path d="M700 342l50 40-50 40" fill="none" stroke="#2458ff" stroke-width="12" stroke-linecap="round" stroke-linejoin="round"/>
+  <rect x="790" y="196" width="260" height="86" rx="18" fill="#eef5ff"/><text x="818" y="248" font-family="Segoe UI, Tahoma" font-size="22" font-weight="900" fill="#0d2550">คดีใหม่พร้อมกรอก</text>
+  <rect x="790" y="312" width="260" height="86" rx="18" fill="#fff7ed"/><text x="818" y="364" font-family="Segoe UI, Tahoma" font-size="22" font-weight="900" fill="#9a5b00">แยกบุคคลอัตโนมัติ</text>
+  <rect x="790" y="428" width="260" height="86" rx="18" fill="#f0fdf4"/><text x="818" y="480" font-family="Segoe UI, Tahoma" font-size="22" font-weight="900" fill="#16845b">พร้อมสร้างเอกสาร</text>
+  <text x="96" y="672" font-family="Segoe UI, Tahoma" font-size="16" font-weight="800" fill="#8a98ad">Mockup จำลองเพื่ออธิบายฟีเจอร์ ไม่ใช่ข้อมูลบุคคลจริง</text>
+</svg>

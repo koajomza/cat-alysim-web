@@ -1,0 +1,1 @@
+feature1.png = เพิ่มบุคคลจากข้อมูลเดิมหรือ Linkage Center
