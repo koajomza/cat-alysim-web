@@ -473,3 +473,82 @@
 @media(max-width:1100px){.media-page,.media-gallery article,.feature-row-card,.feature-row-card:nth-child(even){grid-template-columns:1fr}.media-gallery{grid-template-columns:1fr}.feature-row-card:nth-child(even) .feature-page-image{order:0}.feature-row-card .feature-page-image,.feature-row-card:nth-child(even) .feature-page-image{border-left:0;border-right:0;border-bottom:1px solid #e2eaf4}}
 @media(max-width:900px){.feature-page-grid,.payment-grid,.home-choice-section{grid-template-columns:1fr}.payment-teaser{display:grid;padding:34px 24px}.payment-teaser h2{font-size:32px}}
 @media(max-width:800px){.nav-dropdown>div{position:static;transform:none!important;opacity:1;pointer-events:auto;width:auto!important;box-shadow:none;border:0;background:#f6f8fc;margin:2px 0 8px}.product-nav nav.open{max-height:calc(100vh - 70px);overflow:auto}.program-panel,.program-mockup-card{padding:14px}.program-copy h3,.program-mockup-copy h3{font-size:32px}.program-mockup-stage,.program-mockup-stage img{min-height:280px}.mockup-round{width:44px;height:44px}}
+
+/* Mobile public website */
+@media(max-width:800px){
+ body{min-width:0}
+ .marketing-site{width:100%;overflow-x:hidden}
+ .marketing-header{height:66px;grid-template-columns:minmax(0,1fr) auto;padding:0 14px;gap:10px}
+ .marketing-brand{min-width:0}
+ .marketing-brand strong{font-size:15px;letter-spacing:.05em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+ .marketing-brand img{width:32px;height:32px}
+ .marketing-actions{gap:8px}
+ .marketing-actions>button{width:40px;height:40px;border-radius:12px}
+ .marketing-actions .nav-login{display:inline-flex;min-height:40px;height:40px;padding:0 11px;border-radius:12px;font-size:12px;white-space:nowrap}
+ .marketing-actions .nav-login svg{width:15px;height:15px}
+ .marketing-actions .nav-trial{display:none}
+ .user-nav{display:block}
+ .user-nav-button.polished{min-width:42px!important;width:42px!important;height:42px!important;padding:0!important;border-radius:13px!important}
+ .user-mini-avatar{width:30px;height:30px;border-radius:10px;font-size:13px}
+ .user-mini-copy,.user-nav-button.polished>svg{display:none!important}
+ .user-dropdown{position:fixed;right:12px;top:64px;width:calc(100vw - 24px)}
+ .marketing-header nav{top:66px;padding:10px 14px 18px}
+ .marketing-header nav.open{display:grid;gap:2px}
+ .marketing-header nav a,.nav-dropdown>a{min-height:42px;padding:10px 6px;font-size:14px}
+ .nav-dropdown>div a{padding:10px;border-radius:10px}
+ .nav-dropdown>div small{display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+ .marketing-hero{display:grid;grid-template-columns:1fr;gap:30px;padding:38px 16px 46px}
+ .marketing-copy h1{font-size:clamp(34px,11vw,48px);line-height:1.16;letter-spacing:0}
+ .marketing-copy>p{font-size:15px;line-height:1.75}
+ .marketing-kicker{font-size:11px;max-width:100%;line-height:1.35}
+ .marketing-buttons{gap:10px;margin-top:24px}
+ .marketing-buttons a,.download-band a,.media-copy a,.program-copy a,.feature-detail-link{width:100%;min-height:46px}
+ .hero-facts{display:grid;gap:10px;margin-top:22px;padding-top:18px}
+ .marketing-preview{padding:0}
+ .preview-window{border-radius:16px}
+ .preview-bar{height:36px}
+ .preview-window img{min-height:220px;object-fit:cover;object-position:left top}
+ .home-choice-section{padding:44px 16px;gap:14px}
+ .home-choice-section>a{min-height:0;padding:22px;border-radius:18px}
+ .home-choice-section h2{font-size:25px}
+ .download-band{margin:14px 16px 44px;padding:28px 18px;border-radius:20px;gap:22px}
+ .download-band h2{font-size:28px;line-height:1.2}
+ .download-band p{font-size:14px;line-height:1.7}
+ .subpage-hero{padding:46px 16px 32px}
+ .subpage-hero h1{font-size:clamp(34px,10vw,48px);line-height:1.13;letter-spacing:0}
+ .subpage-hero p{font-size:15px;line-height:1.72}
+ .subpage-section,.marketing-section{padding:34px 16px 48px}
+ .program-mockup-list{gap:18px}
+ .program-mockup-card{gap:14px;border-radius:20px;padding:12px}
+ .program-mockup-copy{padding:8px;gap:10px}
+ .program-mockup-copy h3{font-size:28px;line-height:1.18}
+ .content-sub{font-size:14px!important;line-height:1.65!important}
+ .mockup-dots{gap:8px}
+ .mockup-dots button{width:12px;height:12px}
+ .mockup-dots button.active{width:30px}
+ .program-mockup-stage{min-height:0;border-radius:16px;aspect-ratio:16/10}
+ .program-mockup-stage img{min-height:0;height:100%;object-fit:contain}
+ .mockup-round{width:40px;height:40px}
+ .mockup-round.prev{left:8px}
+ .mockup-round.next{right:8px}
+ .feature-row-grid{gap:16px}
+ .feature-page-card{border-radius:18px}
+ .feature-row-card .feature-page-image{height:auto}
+ .feature-row-card .feature-page-image img{height:auto;max-height:none}
+ .feature-page-image{padding:10px}
+ .feature-page-image img{border-radius:12px}
+ .feature-row-card .feature-page-copy{padding:22px}
+ .feature-page-copy h3{font-size:24px;line-height:1.28}
+ .media-page{grid-template-columns:1fr;padding:36px 16px;gap:16px}
+ .media-copy{padding:22px;border-radius:18px}
+ .media-copy h2{font-size:30px}
+ .media-showcase{border-radius:16px}
+ .media-gallery{padding:0 16px 46px;gap:16px}
+ .media-gallery article{grid-template-columns:1fr;padding:12px;border-radius:18px}
+ .payment-teaser{margin:18px 16px;padding:26px 18px;border-radius:20px}
+ .payment-grid{gap:14px}
+ .payment-grid article{min-height:0;padding:22px;border-radius:18px}
+ .payment-hero{padding:28px 0 18px}
+ .payment-page{padding:24px 16px}
+ .marketing-footer{gap:28px}
+}
