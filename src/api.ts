@@ -1,7 +1,7 @@
 import type {CaseData} from './types';
-import {getTrialToken} from './auth';
+import {getAuthHeaders} from './auth';
 import {apiUrl} from './apiClient';
-function authHeaders(extra:Record<string,string>={}){const token=getTrialToken();return token?{...extra,Authorization:`Bearer ${token}`}:{...extra}}
+const authHeaders=getAuthHeaders;
 export async function upload(file:File){const fd=new FormData();fd.append('file',file);const r=await fetch(apiUrl('/api/import'),{method:'POST',headers:authHeaders(),body:fd});if(!r.ok)throw new Error(await r.text());return r.json()}
 export async function saveCase(data:CaseData){const r=await fetch(apiUrl('/api/cases'),{method:'POST',headers:authHeaders({'Content-Type':'application/json'}),body:JSON.stringify(data)});if(!r.ok)throw new Error(await r.text());return r.json()}
 export async function getDocuments(){const r=await fetch(apiUrl('/api/documents'),{headers:authHeaders()});if(!r.ok)throw new Error(await r.text());return r.json()}
