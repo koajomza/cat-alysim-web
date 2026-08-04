@@ -388,9 +388,11 @@
 .program-mockup-copy>span{width:max-content;display:inline-flex;align-items:center;gap:8px;border-radius:999px;padding:8px 11px;font-size:12px;font-weight:950;letter-spacing:.06em;background:#eaf0ff;color:#2458ff}
 .program-mockup-card.amber .program-mockup-copy>span{background:#fff4db;color:#a65f00}
 .program-mockup-card.green .program-mockup-copy>span{background:#e5fbf0;color:#087647}
+.content-group-title{display:block;margin:2px 0 -6px;color:#6d7c94;font-size:13px;font-weight:900}
 .program-mockup-copy h3{margin:5px 0 0;font-size:clamp(34px,3vw,50px);line-height:1.12;color:#071a46}
 .program-mockup-copy p{margin:0;color:#5f6f88;font-size:16px;line-height:1.85}
 .content-caption{font-size:24px!important;line-height:1.45!important;color:#0d2348!important;font-weight:950!important}
+.content-sub{max-width:520px;color:#51647f!important;font-size:17px!important;line-height:1.75!important;font-weight:650!important}
 .mockup-file-name{width:max-content;max-width:100%;padding:9px 12px;border:1px dashed #b9c8df;border-radius:12px;background:#f7faff;color:#324864;font-size:13px;font-weight:900}
 .mockup-dots{display:flex;gap:9px;flex-wrap:wrap;margin-top:5px}
 .mockup-dots button{width:13px;height:13px;border:0;border-radius:50%;background:#c4d1e4;cursor:pointer;transition:.18s}
@@ -420,6 +422,7 @@
 .feature-page-copy>span{width:max-content;max-width:100%;display:inline-flex;align-items:center;gap:8px;border-radius:999px;background:#eef5ff;color:#2458ff;padding:7px 10px;font-size:12px;font-weight:950}
 .feature-page-copy h3{margin:4px 0 0;font-size:28px;color:#071a46}
 .feature-page-copy p{margin:0;color:#5f6f88;line-height:1.75;font-size:15px}
+.feature-page-copy .content-sub{font-size:16px!important}
 .feature-detail-link{width:max-content;display:inline-flex;align-items:center;gap:7px;margin-top:8px;border-radius:11px;background:#10244b;color:#fff!important;padding:10px 13px;font-size:13px;font-weight:900}
 .media-page{display:grid;grid-template-columns:minmax(320px,.36fr) minmax(0,1fr);gap:26px;align-items:center;padding:58px max(28px,calc((100vw - 1440px)/2));background:#fff}
 .media-page.scene-page{background:linear-gradient(180deg,#fff,#f5f8fc)}
