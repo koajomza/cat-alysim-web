@@ -9,6 +9,12 @@
 /features /features/ 301
 /features/ /index.html 200
 /features/* /index.html 200
+/photo-evidence /photo-evidence/ 301
+/photo-evidence/ /index.html 200
+/photo-evidence/* /index.html 200
+/crime-scene /crime-scene/ 301
+/crime-scene/ /index.html 200
+/crime-scene/* /index.html 200
 /trial/drugs /trial/drugs/ 301
 /trial/drugs/ /index.html 200
 /trial/drugs/* /index.html 200

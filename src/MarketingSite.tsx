@@ -2,7 +2,7 @@ import {useEffect,useMemo,useState} from 'react';
 import {ArrowRight,BookOpen,CalendarDays,Camera,ChevronDown,CreditCard,Database,Download,FileText,FolderSearch,Link2,LogIn,LogOut,MapPinned,Menu,MessageSquareText,Monitor,Search,ShieldCheck,Sparkles,UserPlus,UsersRound,WandSparkles,X} from 'lucide-react';
 import {getCurrentUser,logout,type AuthContext} from './auth';
 
-type PageMode='home'|'program'|'features';
+type PageMode='home'|'program'|'features'|'photoEvidence'|'crimeScene';
 
 const release={
  version:'2026.08.05.2',
@@ -37,12 +37,18 @@ const featurePages=[
  {id:'feature-search',icon:Search,title:'Deep Search',short:'ค้นลึกทั้งระบบ',text:'ค้นจากเลขคดี ชื่อคน ข้อหา memo คำให้การ และสถานที่เกิดเหตุ แล้วกดกลับไปยังคดีที่เกี่ยวข้องได้ทันที',img:'/screenshots/app/deep-search.png'}
 ];
 
+const featureLinks:{[key:string]:string}={
+ 'feature-criminal-map':'/crime-scene/',
+ 'feature-traffic-map':'/crime-scene/',
+ 'feature-photo':'/photo-evidence/'
+};
+
 const downloadFacts=['เวอร์ชันล่าสุด '+release.version,'Installer bootstrap '+release.installerVersion,'ลิงก์ตรงจาก GitHub Release'];
 function userLabel(ctx:AuthContext|null){const p=ctx?.profile||{};const value=p.username||p.display_name||p.full_name||ctx?.user.email;return typeof value==='string'&&value?value.split('@')[0]:'ผู้ใช้'}
 
 function Header({auth,name,userMenu,setUserMenu,menu,setMenu,signOut}:{auth:AuthContext|null;name:string;userMenu:boolean;setUserMenu:(v:boolean|((v:boolean)=>boolean))=>void;menu:boolean;setMenu:(v:boolean|((v:boolean)=>boolean))=>void;signOut:()=>void}){
  const authActions=auth?<div className="user-nav"><button className="user-nav-button polished" onClick={()=>setUserMenu(v=>!v)}><span className="user-mini-avatar">{name.slice(0,1).toUpperCase()}</span><span className="user-mini-copy"><b>{name}</b><small>บัญชีพร้อมใช้งาน</small></span><ChevronDown size={15}/></button>{userMenu&&<div className="user-dropdown"><a href="/trial/drugs/"><FileText size={16}/>เข้า Trial Drugs</a><a href="/payment/"><CreditCard size={16}/>ชำระเงิน</a><a href="/#download"><Download size={16}/>ดาวน์โหลดโปรแกรม</a><button onClick={signOut}><LogOut size={16}/>ออกจากระบบ</button></div>}</div>:<><a className="nav-login" href="/trial/drugs/?auth=login"><LogIn size={16}/>เข้าสู่ระบบ</a><a className="nav-trial" href="/trial/drugs/?auth=signup"><UserPlus size={16}/>สมัครสมาชิก</a></>;
- return <header className="marketing-header product-nav"><a className="marketing-brand" href="/"><img src="/cat-alysim-mark.png"/><strong>CAT-ALYSIM</strong></a><nav className={menu?'open':''}><a href="/">หน้าแรก</a><div className="nav-dropdown"><a href="/program/">โปรแกรม <ChevronDown size={14}/></a><div>{programPages.map(({id,icon:Icon,title,text})=><a href={`/program/#${id}`} key={id}><Icon size={17}/><span><b>{title}</b><small>{text}</small></span></a>)}</div></div><div className="nav-dropdown wide"><a href="/features/">ฟีเจอร์ <ChevronDown size={14}/></a><div>{featurePages.map(({id,icon:Icon,title,short})=><a href={`/features/#${id}`} key={id}><Icon size={17}/><span><b>{title}</b><small>{short}</small></span></a>)}</div></div><a href="/payment/"><CreditCard size={15}/>ชำระเงิน</a><a href="/#download">ดาวน์โหลด</a><a href="/trial/drugs/">ทดลองระบบ</a></nav><div className="marketing-actions">{authActions}<button onClick={()=>setMenu(v=>!v)}>{menu?<X/>:<Menu/>}</button></div></header>
+ return <header className="marketing-header product-nav"><a className="marketing-brand" href="/"><img src="/cat-alysim-mark.png"/><strong>CAT-ALYSIM</strong></a><nav className={menu?'open':''}><a href="/">หน้าแรก</a><div className="nav-dropdown"><a href="/program/">โปรแกรม <ChevronDown size={14}/></a><div>{programPages.map(({id,icon:Icon,title,text})=><a href={`/program/#${id}`} key={id}><Icon size={17}/><span><b>{title}</b><small>{text}</small></span></a>)}</div></div><div className="nav-dropdown wide"><a href="/features/">ฟีเจอร์ <ChevronDown size={14}/></a><div>{featurePages.map(({id,icon:Icon,title,short})=><a href={featureLinks[id]||`/features/#${id}`} key={id}><Icon size={17}/><span><b>{title}</b><small>{short}</small></span></a>)}</div></div><a href="/payment/"><CreditCard size={15}/>ชำระเงิน</a><a href="/#download">ดาวน์โหลด</a><a href="/trial/drugs/">ทดลองระบบ</a></nav><div className="marketing-actions">{authActions}<button onClick={()=>setMenu(v=>!v)}>{menu?<X/>:<Menu/>}</button></div></header>
 }
 
 function Footer(){return <footer className="marketing-footer"><div><a className="marketing-brand footer-brand" href="/"><img src="/cat-alysim-mark.png"/><strong>CAT-ALYSIM</strong></a><p>ระบบจัดการคดีและสร้างเอกสารสำหรับงานสอบสวน</p></div><div><b>เมนูหลัก</b><a href="/">หน้าแรก</a><a href="/program/">โปรแกรม</a><a href="/features/">ฟีเจอร์</a><a href="/payment/">ชำระเงิน</a></div><div><b>ใช้งาน</b><a href="/trial/drugs/?auth=login">เข้าสู่ระบบ</a><a href="/trial/drugs/?auth=signup">สมัครสมาชิก</a><a href="/trial/drugs/">ทดลองระบบ</a></div><div><b>Release</b><a href={release.releaseUrl}>GitHub Releases</a><a href={release.latestJson}>latest.json</a><span>Version {release.version}</span></div></footer>}
@@ -56,7 +62,15 @@ function ProgramPageContent(){
 }
 
 function FeaturesPageContent(){
- return <main><section className="subpage-hero"><span>FEATURES</span><h1>ฟีเจอร์สำคัญที่แยกดูได้ทีละอย่าง</h1><p>แต่ละฟีเจอร์มีชื่อ รูป และคำอธิบายชัดเจน กดจาก dropdown แล้วกระโดดมาดูจุดนั้นได้ทันที</p></section><section id="features" className="marketing-section feature-page-section subpage-section"><div className="feature-page-grid">{featurePages.map(({id,icon:Icon,title,short,text,img})=><article id={id} key={id} className="feature-page-card"><div className="feature-page-image"><img src={img}/></div><div className="feature-page-copy"><span><Icon size={16}/>{short}</span><h3>{title}</h3><p>{text}</p></div></article>)}</div></section></main>
+ return <main><section className="subpage-hero"><span>FEATURES</span><h1>ฟีเจอร์สำคัญที่แยกดูได้ทีละอย่าง</h1><p>แต่ละฟีเจอร์มีชื่อ รูป และคำอธิบายชัดเจน กดจาก dropdown แล้วกระโดดมาดูจุดนั้นได้ทันที</p></section><section id="features" className="marketing-section feature-page-section subpage-section"><div className="feature-page-grid">{featurePages.map(({id,icon:Icon,title,short,text,img})=><article id={id} key={id} className="feature-page-card"><div className="feature-page-image"><img src={img}/></div><div className="feature-page-copy"><span><Icon size={16}/>{short}</span><h3>{title}</h3><p>{text}</p>{featureLinks[id]&&<a className="feature-detail-link" href={featureLinks[id]}>เปิดหน้าเต็ม <ArrowRight size={15}/></a>}</div></article>)}</div></section></main>
+}
+
+function PhotoEvidencePageContent(){
+ return <main><section className="subpage-hero"><span>PHOTO EVIDENCE</span><h1>ภาพถ่ายประกอบคดี ทำเอกสารได้จากรูปจริง</h1><p>ลากรูปเข้าโปรแกรม เลือกรูปที่ต้องการ ใส่คำอธิบาย และสร้างไฟล์ Word สำหรับแนบสำนวนได้เลย หน้านี้ใช้รูปหน้าจอจริงของระบบ Photo Evidence</p></section><section className="media-page"><div className="media-copy"><Camera size={30}/><h2>รูปเข้า เอกสารออก</h2><p>เหมาะกับงานที่ต้องแนบภาพหลายใบ เช่น ภาพสถานที่ ภาพของกลาง หรือภาพความเสียหาย โปรแกรมช่วยเรียงรูป ใส่ข้อความกำกับ และแสดงตัวอย่างก่อนสร้างเอกสาร</p><div><span>เพิ่มรูปหลายไฟล์</span><span>จัดลำดับภาพ</span><span>สร้าง .docx</span></div><a href="/trial/drugs/">ทดลองใช้ในระบบ <ArrowRight size={16}/></a></div><div className="media-showcase"><img src="/screenshots/app/photo-evidence-real.png?v=20260805-photo"/></div></section></main>
+}
+
+function CrimeScenePageContent(){
+ return <main><section className="subpage-hero"><span>CRIME SCENE MAP</span><h1>แผนที่เกิดเหตุ วาดให้เห็นภาพแบบเข้าใจทันที</h1><p>หน้าแผนที่เกิดเหตุรองรับทั้งคดีจราจรและคดีอาญา โดยภาพหลักด้านล่างใช้รูปรถจากงานคดีจราจรตามที่ต้องการ</p></section><section className="media-page scene-page"><div className="media-copy"><MapPinned size={30}/><h2>คดีจราจร: วาดถนน รถ จุดชน และทิศทาง</h2><p>ใช้วางรถ ถนน กรวย จุดชน เส้นทาง และสัญลักษณ์สำคัญ เพื่อให้เอกสารสำนวนอ่านแล้วเห็นภาพ ไม่ต้องอธิบายยาวซ้ำหลายรอบ</p><div><span>รูปรถ</span><span>จุดชน</span><span>แนวถนน</span><span>ส่งออกแผนที่</span></div><a href="/trial/drugs/">ทดลองใช้ในระบบ <ArrowRight size={16}/></a></div><div className="media-showcase main-scene"><img src="/screenshots/app/traffic-scene-map.png?v=20260805-car"/></div></section><section className="media-gallery"><article><img src="/screenshots/app/criminal-scene-map.png?v=20260805-room"/><div><h3>คดีอาญา</h3><p>วาดผังบ้าน ห้อง จุดพบของ และตำแหน่งสำคัญในสถานที่เกิดเหตุ</p></div></article><article><img src="/screenshots/app/traffic-scene-map.png?v=20260805-car"/><div><h3>คดีจราจร</h3><p>วาดรถ ถนน กรวย และจุดเฉี่ยวชนสำหรับประกอบสำนวนจราจร</p></div></article></section></main>
 }
 
 function DownloadBand(){return <section id="download" className="download-band release-band"><div><span>DOWNLOAD</span><h2>ดาวน์โหลดจาก GitHub Release โดยตรง</h2><p>เวอร์ชันล่าสุด {release.version} ระบบอัปเดตของแอพอ่าน `latest.json` จาก release เดียวกัน</p><small>Installer bootstrap: {release.installerVersion}</small></div><div><a className="btn-light" href={release.installerUrl}>ดาวน์โหลด Installer <Download size={18}/></a><a className="btn-ghost-light" href={release.fullZipUrl}>ดาวน์โหลด Full ZIP <ArrowRight size={18}/></a><a className="btn-ghost-light" href={release.releaseUrl}>เปิดหน้า Release <ArrowRight size={18}/></a></div></section>}
@@ -66,5 +80,5 @@ export default function MarketingSite({page='home'}:{page?:PageMode}){
  useEffect(()=>{getCurrentUser().then(setAuth).catch(()=>setAuth(null))},[]);
  const name=useMemo(()=>userLabel(auth),[auth]);
  async function signOut(){await logout();setAuth(null);setUserMenu(false);window.location.href='/'}
- return <div className="marketing-site"><Header auth={auth} name={name} userMenu={userMenu} setUserMenu={setUserMenu} menu={menu} setMenu={setMenu} signOut={signOut}/>{page==='program'?<ProgramPageContent/>:page==='features'?<FeaturesPageContent/>:<HomePage/>}<Footer/></div>
+ return <div className="marketing-site"><Header auth={auth} name={name} userMenu={userMenu} setUserMenu={setUserMenu} menu={menu} setMenu={setMenu} signOut={signOut}/>{page==='program'?<ProgramPageContent/>:page==='features'?<FeaturesPageContent/>:page==='photoEvidence'?<PhotoEvidencePageContent/>:page==='crimeScene'?<CrimeScenePageContent/>:<HomePage/>}<Footer/></div>
 }
