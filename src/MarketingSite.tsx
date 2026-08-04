@@ -1,8 +1,8 @@
 import {useEffect,useMemo,useState} from 'react';
-import {ArrowRight,BookOpen,CalendarDays,Camera,ChevronDown,CreditCard,Database,Download,FileText,FolderSearch,Link2,LogIn,LogOut,MapPinned,Menu,MessageSquareText,Monitor,Search,ShieldCheck,Sparkles,UserPlus,UsersRound,WandSparkles,X} from 'lucide-react';
+import {ArrowRight,BookOpen,CalendarDays,Camera,ChevronDown,CreditCard,Database,Download,FileText,FolderSearch,Link2,LogIn,LogOut,MapPinned,Menu,MessageSquareText,Monitor,Scale,Search,ShieldCheck,Sparkles,UserPlus,UsersRound,WandSparkles,X} from 'lucide-react';
 import {getCurrentUser,logout,type AuthContext} from './auth';
 
-type PageMode='home'|'program'|'features'|'photoEvidence'|'crimeScene';
+type PageMode='home'|'program'|'features'|'photoEvidence'|'crimeScene'|'trafficFine';
 
 const release={
  version:'2026.08.05.2',
@@ -29,6 +29,7 @@ const featurePages=[
  {id:'feature-imprison',icon:CalendarDays,title:'Custody Timeline',short:'ฝากขังและประกัน',text:'คำนวณรอบฝากขัง เก็บคำร้อง ศาล สถานะผู้ต้องหา และข้อมูลประกัน ช่วยไม่ให้พลาดวันสำคัญ',img:'/screenshots/app/criminal-imprison.png'},
  {id:'feature-criminal-map',icon:MapPinned,title:'Crime Scene Map',short:'แผนที่เกิดเหตุคดีอาญา',text:'สำหรับคดีอาญา ใช้วาดห้อง จุดพบของ จุดเกิดเหตุ และตำแหน่งสำคัญในบ้านหรือสถานที่เกิดเหตุ',img:'/screenshots/app/criminal-scene-map.png'},
  {id:'feature-traffic-map',icon:MapPinned,title:'Traffic Scene Map',short:'แผนที่เกิดเหตุคดีจราจร',text:'สำหรับคดีจราจร ใช้วาดถนน รถ จุดชน กรวย และทิศทางการเคลื่อนที่ เพื่อประกอบสำนวนให้เห็นภาพชัด',img:'/screenshots/app/traffic-scene-map.png'},
+ {id:'feature-traffic-fine',icon:Scale,title:'Traffic Fine Order',short:'ปรับพินัยคดีจราจร',text:'บันทึกผู้ถูกกล่าวหา สรุปพฤติการณ์ เลขหนังสือแจ้งข้อกล่าวหา คำสั่งปรับ ค่าปรับ วิธีส่ง และสถานะการชำระในหน้าเดียว',img:'/screenshots/app/traffic-fine.png'},
  {id:'feature-photo',icon:Camera,title:'Photo Evidence',short:'ภาพถ่ายประกอบคดี',text:'ลากรูปเข้าโปรแกรม จัดลำดับ ใส่คำอธิบาย แล้วสร้างเอกสารภาพถ่ายประกอบคดีเป็นไฟล์ Word ได้ทันที',img:'/screenshots/app/photo-evidence-real.png'},
  {id:'feature-community',icon:UsersRound,title:'CAT Exchange',short:'คอมมูนิตี้แบ่งปันฟอร์ม',text:'แชร์ชุดคำถาม ข้อหา ฟอร์ม หรือชุดข้อมูลตัวอย่างให้ทีมใช้ต่อ ช่วยให้ของดีไม่หายไปกับเครื่องใครเครื่องหนึ่ง',img:'/screenshots/app/community.png'},
  {id:'feature-chat',icon:MessageSquareText,title:'Team Chat Workspace',short:'แชทและส่งไฟล์ในทีม',text:'คุยงาน ส่งไฟล์ เปิดไฟล์ และเก็บประวัติการสื่อสารไว้ใกล้กับพื้นที่ทำงานของโปรแกรม',img:'/screenshots/app/chat.png'},
@@ -40,6 +41,7 @@ const featurePages=[
 const featureLinks:{[key:string]:string}={
  'feature-criminal-map':'/crime-scene/',
  'feature-traffic-map':'/crime-scene/',
+ 'feature-traffic-fine':'/traffic-fine/',
  'feature-photo':'/photo-evidence/'
 };
 
@@ -73,6 +75,10 @@ function CrimeScenePageContent(){
  return <main><section className="subpage-hero"><span>CRIME SCENE MAP</span><h1>แผนที่เกิดเหตุ วาดให้เห็นภาพแบบเข้าใจทันที</h1><p>หน้าแผนที่เกิดเหตุรองรับทั้งคดีจราจรและคดีอาญา โดยภาพหลักด้านล่างใช้รูปรถจากงานคดีจราจรตามที่ต้องการ</p></section><section className="media-page scene-page"><div className="media-copy"><MapPinned size={30}/><h2>คดีจราจร: วาดถนน รถ จุดชน และทิศทาง</h2><p>ใช้วางรถ ถนน กรวย จุดชน เส้นทาง และสัญลักษณ์สำคัญ เพื่อให้เอกสารสำนวนอ่านแล้วเห็นภาพ ไม่ต้องอธิบายยาวซ้ำหลายรอบ</p><div><span>รูปรถ</span><span>จุดชน</span><span>แนวถนน</span><span>ส่งออกแผนที่</span></div><a href="/trial/drugs/">ทดลองใช้ในระบบ <ArrowRight size={16}/></a></div><div className="media-showcase main-scene"><img src="/screenshots/app/traffic-scene-map.png?v=20260805-car"/></div></section><section className="media-gallery"><article><img src="/screenshots/app/criminal-scene-map.png?v=20260805-room"/><div><h3>คดีอาญา</h3><p>วาดผังบ้าน ห้อง จุดพบของ และตำแหน่งสำคัญในสถานที่เกิดเหตุ</p></div></article><article><img src="/screenshots/app/traffic-scene-map.png?v=20260805-car"/><div><h3>คดีจราจร</h3><p>วาดรถ ถนน กรวย และจุดเฉี่ยวชนสำหรับประกอบสำนวนจราจร</p></div></article></section></main>
 }
 
+function TrafficFinePageContent(){
+ return <main><section className="subpage-hero"><span>TRAFFIC FINE ORDER</span><h1>ปรับพินัยจราจร จัดข้อมูลค่าปรับให้เป็นชุดเดียว</h1><p>ฟีเจอร์พิเศษสำหรับคดีจราจร ใช้บันทึกข้อมูลผู้ถูกกล่าวหา สรุปพฤติการณ์ หนังสือแจ้งข้อกล่าวหา คำสั่งปรับ และสถานะการชำระค่าปรับ</p></section><section className="media-page scene-page"><div className="media-copy"><Scale size={30}/><h2>จากข้อมูลคดี ไปเป็นคำสั่งปรับ</h2><p>หน้าเดียวเก็บครบตั้งแต่เลขคดี เลขคำสั่งปรับ จำนวนเงิน วันแจ้ง วิธีส่งหนังสือ และผลการชำระ ช่วยให้การติดตามงานปรับพินัยไม่หล่นกลางทาง</p><div><span>เลขหนังสือ</span><span>ค่าปรับ</span><span>กำหนดชำระ</span><span>สถานะ</span></div><a href="/trial/drugs/">ทดลองใช้ในระบบ <ArrowRight size={16}/></a></div><div className="media-showcase main-scene"><img src="/screenshots/app/traffic-fine.png?v=20260805-fine"/></div></section></main>
+}
+
 function DownloadBand(){return <section id="download" className="download-band release-band"><div><span>DOWNLOAD</span><h2>ดาวน์โหลดจาก GitHub Release โดยตรง</h2><p>เวอร์ชันล่าสุด {release.version} ระบบอัปเดตของแอพอ่าน `latest.json` จาก release เดียวกัน</p><small>Installer bootstrap: {release.installerVersion}</small></div><div><a className="btn-light" href={release.installerUrl}>ดาวน์โหลด Installer <Download size={18}/></a><a className="btn-ghost-light" href={release.fullZipUrl}>ดาวน์โหลด Full ZIP <ArrowRight size={18}/></a><a className="btn-ghost-light" href={release.releaseUrl}>เปิดหน้า Release <ArrowRight size={18}/></a></div></section>}
 
 export default function MarketingSite({page='home'}:{page?:PageMode}){
@@ -80,5 +86,5 @@ export default function MarketingSite({page='home'}:{page?:PageMode}){
  useEffect(()=>{getCurrentUser().then(setAuth).catch(()=>setAuth(null))},[]);
  const name=useMemo(()=>userLabel(auth),[auth]);
  async function signOut(){await logout();setAuth(null);setUserMenu(false);window.location.href='/'}
- return <div className="marketing-site"><Header auth={auth} name={name} userMenu={userMenu} setUserMenu={setUserMenu} menu={menu} setMenu={setMenu} signOut={signOut}/>{page==='program'?<ProgramPageContent/>:page==='features'?<FeaturesPageContent/>:page==='photoEvidence'?<PhotoEvidencePageContent/>:page==='crimeScene'?<CrimeScenePageContent/>:<HomePage/>}<Footer/></div>
+ return <div className="marketing-site"><Header auth={auth} name={name} userMenu={userMenu} setUserMenu={setUserMenu} menu={menu} setMenu={setMenu} signOut={signOut}/>{page==='program'?<ProgramPageContent/>:page==='features'?<FeaturesPageContent/>:page==='photoEvidence'?<PhotoEvidencePageContent/>:page==='crimeScene'?<CrimeScenePageContent/>:page==='trafficFine'?<TrafficFinePageContent/>:<HomePage/>}<Footer/></div>
 }

@@ -15,6 +15,9 @@
 /crime-scene /crime-scene/ 301
 /crime-scene/ /index.html 200
 /crime-scene/* /index.html 200
+/traffic-fine /traffic-fine/ 301
+/traffic-fine/ /index.html 200
+/traffic-fine/* /index.html 200
 /trial/drugs /trial/drugs/ 301
 /trial/drugs/ /index.html 200
 /trial/drugs/* /index.html 200
