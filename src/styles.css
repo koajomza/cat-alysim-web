@@ -14,6 +14,7 @@
   align-items: end;
   gap: 16px;
 }
+
 .memo-toolbar {
   display: flex;
   justify-content: flex-end;
@@ -571,4 +572,46 @@
  .payment-hero{padding:28px 0 18px}
  .payment-page{padding:24px 16px}
  .marketing-footer{gap:28px}
+}
+
+/* Final public-site typography and payment overrides */
+:root{font-family:"Noto Sans Thai","Sarabun","LINE Seed Sans TH","Segoe UI","Leelawadee UI",Tahoma,sans-serif;text-rendering:geometricPrecision;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}
+body{font-weight:400}
+.marketing-site,.payment-page{font-family:"Noto Sans Thai","Sarabun","LINE Seed Sans TH","Segoe UI","Leelawadee UI",Tahoma,sans-serif}
+.marketing-site h1,.marketing-site h2,.marketing-site h3,.payment-page h1,.payment-page h2,.payment-page h3{font-weight:800;letter-spacing:0;text-wrap:balance}
+.marketing-copy h1,.subpage-hero h1,.program-copy h3,.program-mockup-copy h3,.feature-page-copy h3,.media-copy h2,.payment-checkout-copy h1{letter-spacing:0}
+.marketing-site p,.payment-page p,.content-sub{font-weight:400}
+.marketing-kicker,.subpage-hero span,.payment-license-kicker,.payment-summary-card>span,.media-copy span,.program-copy>span,.feature-page-copy>span{font-weight:700;letter-spacing:.045em}
+.marketing-brand strong,.payment-primary,.payment-secondary,.btn-solid,.btn-light,.download-band .download-exe{font-weight:750;letter-spacing:0}
+.marketing-header nav a,.nav-dropdown>a,.user-nav-button.polished{font-weight:650}
+.payment-page-modern{min-height:100vh;display:grid;place-items:center;padding:clamp(16px,3vw,36px);background:#edf2f8;color:#0c1830}
+.payment-checkout-shell{width:min(1180px,calc(100vw - 24px));min-height:498px;display:grid;grid-template-columns:minmax(0,1fr) 414px;border:1px solid #dce4ef;border-radius:20px;background:#fff;overflow:hidden;box-shadow:0 24px 70px rgba(9,27,62,.12)}
+.payment-checkout-copy{padding:clamp(34px,4vw,50px) clamp(30px,4vw,40px);display:grid;align-content:center}
+.payment-checkout-copy .payment-back{width:max-content;margin:0 0 20px;color:#6c7890;font-size:15px;font-weight:650}
+.payment-license-kicker{display:inline-flex;align-items:center;gap:8px;width:max-content;color:#2b68ff;font-size:13px;margin-bottom:24px}
+.payment-checkout-copy h1{margin:0;font-size:clamp(48px,5vw,66px);line-height:1.03;color:#0a1730}
+.payment-checkout-copy p{max-width:680px;margin:22px 0 0;color:#66738a;font-size:16px;line-height:1.8}
+.payment-benefit-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin-top:28px}
+.payment-benefit-grid div{min-height:48px;border:1px solid #d8e0eb;border-radius:10px;background:#f8fafc;display:flex;align-items:center;gap:12px;padding:0 15px;color:#0e1d38;font-weight:700}
+.payment-benefit-grid svg{color:#0ca56d;flex:none}
+.payment-summary-card{background:#0b1c39;color:#fff;padding:clamp(32px,4vw,42px) 34px;display:grid;align-content:center}
+.payment-summary-card>span{color:#6ea2ff;font-size:13px;margin-bottom:26px}
+.payment-price{display:flex;align-items:flex-end;gap:12px;margin-bottom:10px}
+.payment-price strong{font-size:clamp(54px,5.2vw,72px);line-height:.88;font-weight:800;letter-spacing:0;color:#fff}
+.payment-price b{font-size:22px;line-height:1.1;color:#fff}
+.payment-summary-card p{margin:0 0 24px;color:#9eb0cb;line-height:1.7}
+.payment-summary-card dl{margin:0 0 26px;padding:24px 0 0;border-top:1px solid rgba(255,255,255,.15);display:grid;gap:16px}
+.payment-summary-card dl div{display:flex;align-items:center;justify-content:space-between;gap:16px}
+.payment-summary-card dt{color:#9eb0cb;font-size:14px}.payment-summary-card dd{margin:0;color:#fff;font-weight:750}.payment-summary-card dd.pending{color:#ffd13d}
+.payment-summary-card .payment-primary,.payment-summary-card .payment-secondary{width:100%;min-height:48px;border-radius:11px;font-size:15px;margin:0 0 10px}
+.payment-summary-card .payment-primary{background:#2f78ff;color:#fff;box-shadow:none}.payment-summary-card .payment-secondary{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.14);color:#fff}
+.payment-summary-card small{display:flex;align-items:center;justify-content:center;gap:8px;margin-top:2px;color:#9eb0cb;font-weight:650}
+@media(max-width:900px){
+ .payment-page-modern{display:block;padding:14px;background:#edf2f8}
+ .payment-checkout-shell{width:100%;min-height:0;grid-template-columns:1fr;border-radius:18px}
+ .payment-checkout-copy{padding:30px 22px}
+ .payment-checkout-copy h1{font-size:clamp(38px,12vw,52px);line-height:1.08}
+ .payment-benefit-grid{grid-template-columns:1fr}
+ .payment-summary-card{padding:30px 22px}
+ .payment-price strong{font-size:56px}
 }
