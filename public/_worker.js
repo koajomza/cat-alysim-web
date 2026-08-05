@@ -44,6 +44,10 @@ async function readSupabaseUser(request, env) {
 }
 
 async function createCheckoutSession(request, env) {
+  const auth = request.headers.get("authorization") || "";
+  if (!auth.toLowerCase().startsWith("bearer ")) {
+    return json({ error: "กรุณาเข้าสู่ระบบก่อนชำระเงิน" }, 401);
+  }
   const missing = requireEnv(env, ["STRIPE_SECRET_KEY", "SUPABASE_URL", "SUPABASE_SERVICE_ROLE_KEY"]);
   if (missing) return json({ error: missing }, 500);
 
@@ -171,6 +175,10 @@ async function supabaseSingle(env, path) {
 }
 
 async function getPaymentStatus(request, env) {
+  const auth = request.headers.get("authorization") || "";
+  if (!auth.toLowerCase().startsWith("bearer ")) {
+    return json({ error: "กรุณาเข้าสู่ระบบก่อนชำระเงิน" }, 401);
+  }
   const missing = requireEnv(env, ["SUPABASE_URL", "SUPABASE_SERVICE_ROLE_KEY"]);
   if (missing) return json({ error: missing }, 500);
 
