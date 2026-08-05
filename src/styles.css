@@ -604,8 +604,9 @@ body{font-weight:400}
 .payment-summary-card dl div{display:flex;align-items:center;justify-content:space-between;gap:16px}
 .payment-summary-card dt{color:#9eb0cb;font-size:14px}.payment-summary-card dd{margin:0;color:#fff;font-weight:750}.payment-summary-card dd.pending{color:#ffd13d}
 .payment-summary-card .payment-primary,.payment-summary-card .payment-secondary{width:100%;min-height:48px;border-radius:11px;font-size:15px;margin:0 0 10px}
-.payment-summary-card .payment-primary{background:#2f78ff;color:#fff;box-shadow:none}.payment-summary-card .payment-secondary{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.14);color:#fff}
+.payment-summary-card .payment-primary{background:#2f78ff;color:#fff;box-shadow:none;border:0;cursor:pointer}.payment-summary-card .payment-primary:disabled{opacity:.72;cursor:wait}.payment-summary-card .payment-secondary{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.14);color:#fff}
 .payment-summary-card small{display:flex;align-items:center;justify-content:center;gap:8px;margin-top:2px;color:#9eb0cb;font-weight:650}
+.payment-notice{margin-top:18px;border:1px solid #d8e4f3;border-radius:12px;background:#f8fbff;padding:13px 15px;color:#40516d;font-weight:650;line-height:1.55}.payment-notice.success{border-color:#b9ead2;background:#effbf5;color:#126d48}.payment-notice.error{border-color:#ffd2d2;background:#fff5f5;color:#b42318}.spin{animation:spin .8s linear infinite}@keyframes spin{to{transform:rotate(360deg)}}
 @media(max-width:900px){
  .payment-page-modern{display:block;padding:14px;background:#edf2f8}
  .payment-checkout-shell{width:100%;min-height:0;grid-template-columns:1fr;border-radius:18px}
