@@ -188,6 +188,9 @@ export default {
     if (url.pathname === "/api/stripe/webhook" && request.method === "POST") {
       return handleWebhook(request, env);
     }
+    if (url.pathname.startsWith("/api/")) {
+      return json({ error: "API route not found" }, 404);
+    }
     return env.ASSETS.fetch(request);
   },
 };
