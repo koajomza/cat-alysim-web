@@ -1,5 +1,5 @@
 import {useEffect,useState} from 'react';
-import {CheckCircle2,KeyRound,LockKeyhole,LogIn,ShieldCheck,UserPlus} from 'lucide-react';
+import {KeyRound,LogIn,ShieldCheck,UserPlus} from 'lucide-react';
 import {AuthFlowError,getAuthStatus,getCurrentUser,loginTrial,sendPasswordReset,signupTrial,verifyPaidSerial,verifyTrialSerial,type AuthStatus} from './auth';
 
 type Mode='login'|'signup';
@@ -13,16 +13,44 @@ export default function AuthGate({children,requireLogin=false}:{children:React.R
  const [login,setLogin]=useState(localStorage.getItem('cat_alysim_last_login')||''),[password,setPassword]=useState(''),[remember,setRemember]=useState(true);
  const [username,setUsername]=useState(''),[email,setEmail]=useState(''),[newPassword,setNewPassword]=useState(''),[confirm,setConfirm]=useState(''),[accepted,setAccepted]=useState(false);
  const [serial,setSerial]=useState(''),[error,setError]=useState(''),[notice,setNotice]=useState(''),[busy,setBusy]=useState(false);
+
  useEffect(()=>{getAuthStatus().then(async s=>{setStatus(s);if(!s.auth_required&&!requireLogin){setAllowed(true);return}if(forceAuth)return;const u=await getCurrentUser();if(u)setAllowed(true)}).catch(e=>setError(e instanceof Error?e.message:'เชื่อมต่อระบบยืนยันตัวตนไม่สำเร็จ'))},[forceAuth,requireLogin]);
- async function submitLogin(e:React.FormEvent){e.preventDefault();setBusy(true);setError('');setNotice('');try{await loginTrial(login,password);if(remember)localStorage.setItem('cat_alysim_last_login',login);setAllowed(true)}catch(err){if(err instanceof AuthFlowError&&(err.reason==='trial_required'||err.reason==='trial_expired'))setSerialMode(err.reason==='trial_required'?'trial':'paid');setError(err instanceof Error?err.message:'เข้าสู่ระบบไม่สำเร็จ')}finally{setBusy(false)}}
- async function submitSignup(e:React.FormEvent){e.preventDefault();setBusy(true);setError('');setNotice('');try{setNotice(await signupTrial(username,email,newPassword,confirm,accepted));setMode('login');setLogin(username)}catch(err){setError(err instanceof Error?err.message:'สมัครสมาชิกไม่สำเร็จ')}finally{setBusy(false)}}
- async function submitSerial(e:React.FormEvent){e.preventDefault();setBusy(true);setError('');try{if(serialMode==='paid')await verifyPaidSerial(serial);else await verifyTrialSerial(serial);setAllowed(true)}catch(err){setError(err instanceof Error?err.message:'ยืนยัน Serial ไม่สำเร็จ')}finally{setBusy(false)}}
- async function forgot(){if(!login.trim()){setError('กรอกชื่อผู้ใช้หรืออีเมลก่อนกู้รหัสผ่าน');return}setBusy(true);setError('');try{setNotice(await sendPasswordReset(login))}catch(err){setError(err instanceof Error?err.message:'ส่งลิงก์รีเซ็ตไม่สำเร็จ')}finally{setBusy(false)}}
- if(!status&&!error)return <div className="auth-loading"><ShieldCheck size={34}/><b>กำลังตรวจสอบสิทธิ์ทดลองใช้งาน...</b></div>;
- if(allowed)return <>{status&&!status.auth_required&&<div className="auth-dev-banner"><ShieldCheck size={16}/> โครงยืนยันตัวตนวางไว้แล้ว ตอนนี้ปิดการบังคับล็อกอินสำหรับช่วงพัฒนา</div>}{children}</>;
- return <div className="auth-page"><section className="auth-card auth-card-wide"><div className="auth-panel-copy"><div className="auth-icon"><LockKeyhole size={30}/></div><span>CAT-ALYSIM SECURE ACCESS</span><h1>เข้าสู่ระบบด้วยบัญชีเดียวกับ Desktop App</h1><p>สมัครสมาชิก ยืนยันอีเมล รับ Serial ทดลองใช้งาน และผ่านการตรวจสถานะ Trial/Device Lock ก่อนเข้าใช้งานเว็บ</p><div className="auth-steps"><div><CheckCircle2 size={16}/> Supabase Auth</div><div><CheckCircle2 size={16}/> Trial Serial</div><div><CheckCircle2 size={16}/> Device Verification</div></div></div><div className="auth-form-pane">
-  <div className="auth-switch"><button className={mode==='login'?'active':''} onClick={()=>{setMode('login');setError('')}} type="button"><LogIn size={16}/>เข้าสู่ระบบ</button><button className={mode==='signup'?'active':''} onClick={()=>{setMode('signup');setError('');setSerialMode(null)}} type="button"><UserPlus size={16}/>สมัครใช้งาน</button></div>
+
+ async function submitLogin(e:React.FormEvent){
+  e.preventDefault();setBusy(true);setError('');setNotice('');
+  try{await loginTrial(login,password);if(remember)localStorage.setItem('cat_alysim_last_login',login);setAllowed(true)}
+  catch(err){if(err instanceof AuthFlowError&&(err.reason==='trial_required'||err.reason==='trial_expired'))setSerialMode(err.reason==='trial_required'?'trial':'paid');setError(err instanceof Error?err.message:'เข้าสู่ระบบไม่สำเร็จ')}
+  finally{setBusy(false)}
+ }
+ async function submitSignup(e:React.FormEvent){
+  e.preventDefault();setBusy(true);setError('');setNotice('');
+  try{setNotice(await signupTrial(username,email,newPassword,confirm,accepted));setMode('login');setLogin(username)}
+  catch(err){setError(err instanceof Error?err.message:'สมัครสมาชิกไม่สำเร็จ')}
+  finally{setBusy(false)}
+ }
+ async function submitSerial(e:React.FormEvent){
+  e.preventDefault();setBusy(true);setError('');
+  try{if(serialMode==='paid')await verifyPaidSerial(serial);else await verifyTrialSerial(serial);setAllowed(true)}
+  catch(err){setError(err instanceof Error?err.message:'ยืนยัน Serial ไม่สำเร็จ')}
+  finally{setBusy(false)}
+ }
+ async function forgot(){
+  if(!login.trim()){setError('กรอกชื่อผู้ใช้หรืออีเมลก่อนกู้รหัสผ่าน');return}
+  setBusy(true);setError('');
+  try{setNotice(await sendPasswordReset(login))}
+  catch(err){setError(err instanceof Error?err.message:'ส่งลิงก์รีเซ็ตไม่สำเร็จ')}
+  finally{setBusy(false)}
+ }
+
+ if(!status&&!error)return <div className="auth-loading"><ShieldCheck size={30}/><b>กำลังตรวจสอบสิทธิ์...</b></div>;
+ if(allowed)return <>{children}</>;
+
+ return <div className="auth-page auth-page-compact"><section className="auth-window">
+  <div className="auth-window-head"><img src="/cat-alysim-mark.png" alt="CAT-ALYSIM"/><div><b>CAT-ALYSIM</b><span>{mode==='login'?'เข้าสู่ระบบ':'สมัครสมาชิก'}</span></div></div>
+  <div className="auth-switch"><button className={mode==='login'?'active':''} onClick={()=>{setMode('login');setError('');setSerialMode(null)}} type="button"><LogIn size={16}/>เข้าสู่ระบบ</button><button className={mode==='signup'?'active':''} onClick={()=>{setMode('signup');setError('');setSerialMode(null)}} type="button"><UserPlus size={16}/>สมัครใช้งาน</button></div>
   {notice&&<div className="auth-notice">{notice}</div>}
-  {serialMode?<form onSubmit={submitSerial} className="auth-stack"><h2>{serialMode==='trial'?'ยืนยัน Serial ทดลองใช้งาน':'ยืนยัน Serial แบบชำระเงิน'}</h2><p>{serialMode==='trial'?'กรอก Serial จากอีเมลที่ระบบส่งหลังสมัคร เพื่อเปิดสถานะ Trial':'สิทธิ์ Trial หมดอายุแล้ว กรุณาใช้ Serial ที่ได้รับจากผู้ดูแล'}</p><label><span>Serial</span><input value={serial} onChange={e=>setSerial(e.target.value)} autoFocus/></label>{error&&<div className="auth-error">{error}</div>}<button disabled={busy}><KeyRound size={18}/>{busy?'กำลังยืนยัน...':'ยืนยันและเข้าใช้งาน'}</button><button className="auth-link-button" type="button" onClick={()=>setSerialMode(null)}>กลับไปหน้าเข้าสู่ระบบ</button></form>:mode==='login'?<form className="auth-stack" onSubmit={submitLogin}><label><span>ชื่อผู้ใช้หรืออีเมล</span><input value={login} onChange={e=>setLogin(e.target.value)} autoComplete="username"/></label><label><span>รหัสผ่าน</span><input type="password" value={password} onChange={e=>setPassword(e.target.value)} autoComplete="current-password"/></label><label className="auth-check"><input type="checkbox" checked={remember} onChange={e=>setRemember(e.target.checked)}/><span>จำชื่อผู้ใช้ไว้ในเครื่องนี้</span></label>{error&&<div className="auth-error">{error}</div>}<button disabled={busy}><LogIn size={18}/>{busy?'กำลังตรวจสอบ...':'เข้าสู่ระบบ'}</button><button className="auth-link-button" type="button" onClick={forgot}>ลืมรหัสผ่าน</button></form>:<form className="auth-stack" onSubmit={submitSignup}><label><span>ชื่อผู้ใช้</span><input value={username} onChange={e=>setUsername(e.target.value.toLowerCase())} autoComplete="username"/></label><label><span>อีเมล</span><input value={email} onChange={e=>setEmail(e.target.value)} autoComplete="email"/></label><label><span>รหัสผ่าน</span><input type="password" value={newPassword} onChange={e=>setNewPassword(e.target.value)} autoComplete="new-password"/></label><label><span>ยืนยันรหัสผ่าน</span><input type="password" value={confirm} onChange={e=>setConfirm(e.target.value)} autoComplete="new-password"/></label><label className="auth-check"><input type="checkbox" checked={accepted} onChange={e=>setAccepted(e.target.checked)}/><span>ยอมรับเงื่อนไขการใช้งานและนโยบายความเป็นส่วนตัว</span></label>{error&&<div className="auth-error multi-line">{error}</div>}<button disabled={busy}><UserPlus size={18}/>{busy?'กำลังสมัคร...':'สมัครและรับ Trial'}</button></form>}
- </div></section></div>
+  {serialMode?<form onSubmit={submitSerial} className="auth-stack"><h2>{serialMode==='trial'?'ยืนยัน Serial ทดลอง':'ยืนยัน Serial'}</h2><label><span>Serial</span><input value={serial} onChange={e=>setSerial(e.target.value)} autoFocus/></label>{error&&<div className="auth-error">{error}</div>}<button disabled={busy}><KeyRound size={18}/>{busy?'กำลังยืนยัน...':'ยืนยันและเข้าใช้งาน'}</button><button className="auth-link-button" type="button" onClick={()=>setSerialMode(null)}>กลับไปเข้าสู่ระบบ</button></form>
+  :mode==='login'?<form className="auth-stack" onSubmit={submitLogin}><label><span>ชื่อผู้ใช้หรืออีเมล</span><input value={login} onChange={e=>setLogin(e.target.value)} autoComplete="username" autoFocus/></label><label><span>รหัสผ่าน</span><input type="password" value={password} onChange={e=>setPassword(e.target.value)} autoComplete="current-password"/></label><label className="auth-check"><input type="checkbox" checked={remember} onChange={e=>setRemember(e.target.checked)}/><span>จำชื่อผู้ใช้ไว้ในเครื่องนี้</span></label>{error&&<div className="auth-error">{error}</div>}<button disabled={busy}><LogIn size={18}/>{busy?'กำลังตรวจสอบ...':'เข้าสู่ระบบ'}</button><button className="auth-link-button" type="button" onClick={forgot}>ลืมรหัสผ่าน</button></form>
+  :<form className="auth-stack" onSubmit={submitSignup}><label><span>ชื่อผู้ใช้</span><input value={username} onChange={e=>setUsername(e.target.value.toLowerCase())} autoComplete="username" autoFocus/></label><label><span>อีเมล</span><input value={email} onChange={e=>setEmail(e.target.value)} autoComplete="email"/></label><label><span>รหัสผ่าน</span><input type="password" value={newPassword} onChange={e=>setNewPassword(e.target.value)} autoComplete="new-password"/></label><label><span>ยืนยันรหัสผ่าน</span><input type="password" value={confirm} onChange={e=>setConfirm(e.target.value)} autoComplete="new-password"/></label><label className="auth-check"><input type="checkbox" checked={accepted} onChange={e=>setAccepted(e.target.checked)}/><span>ยอมรับเงื่อนไขการใช้งาน</span></label>{error&&<div className="auth-error multi-line">{error}</div>}<button disabled={busy}><UserPlus size={18}/>{busy?'กำลังสมัคร...':'สมัครสมาชิก'}</button></form>}
+ </section></div>;
 }
