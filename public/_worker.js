@@ -158,6 +158,34 @@ async function activateLicense(env, userId, session) {
   if (!res.ok) throw new Error(await res.text());
 }
 
+async function supabaseSingle(env, path) {
+  const res = await fetch(`${env.SUPABASE_URL}/rest/v1/${path}`, {
+    headers: {
+      apikey: env.SUPABASE_SERVICE_ROLE_KEY,
+      authorization: `Bearer ${env.SUPABASE_SERVICE_ROLE_KEY}`,
+    },
+  });
+  if (!res.ok) return null;
+  const data = await res.json().catch(() => null);
+  return Array.isArray(data) ? data[0] || null : data;
+}
+
+async function getPaymentStatus(request, env) {
+  const missing = requireEnv(env, ["SUPABASE_URL", "SUPABASE_SERVICE_ROLE_KEY"]);
+  if (missing) return json({ error: missing }, 500);
+
+  const { user, error, status } = await readSupabaseUser(request, env);
+  if (error) return json({ error }, status);
+
+  const userId = encodeURIComponent(user.id);
+  const profile = await supabaseSingle(env, `profiles?id=eq.${userId}&select=id,status,is_approved,approved,paid_at,serial_key,role&limit=1`);
+  const payment = await supabaseSingle(env, `payments?user_id=eq.${userId}&select=status,amount,currency,paid_at,created_at,stripe_session_id&order=created_at.desc&limit=1`);
+  const paidProfile = Boolean(profile?.is_approved || profile?.approved || profile?.paid_at || profile?.status === "paid" || profile?.status === "active");
+  const paidPayment = payment?.status === "paid" && payment?.amount === PRICE_AMOUNT && payment?.currency === PRICE_CURRENCY;
+  const state = paidProfile || paidPayment ? "paid" : payment ? "pending" : "requested";
+  return json({ state, profile, payment });
+}
+
 async function handleWebhook(request, env) {
   const missing = requireEnv(env, ["STRIPE_WEBHOOK_SECRET", "SUPABASE_URL", "SUPABASE_SERVICE_ROLE_KEY"]);
   if (missing) return json({ error: missing }, 500);
@@ -184,6 +212,9 @@ export default {
     if (request.method === "OPTIONS") return new Response(null, { status: 204 });
     if (url.pathname === "/api/payments/create-checkout-session" && request.method === "POST") {
       return createCheckoutSession(request, env);
+    }
+    if (url.pathname === "/api/payments/status" && request.method === "GET") {
+      return getPaymentStatus(request, env);
     }
     if (url.pathname === "/api/stripe/webhook" && request.method === "POST") {
       return handleWebhook(request, env);
