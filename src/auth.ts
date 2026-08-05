@@ -130,9 +130,31 @@ export async function verifyPaidSerial(serial:string){
 export async function sendPasswordReset(login:string){
  const client=getSupabase();
  const email=await resolveLoginEmail(client,login);
- const {error}=await client.auth.resetPasswordForEmail(email,{redirectTo:`${window.location.origin}/trial/drugs/`});
+ const {error}=await client.auth.resetPasswordForEmail(email,{redirectTo:`${window.location.origin}/auth/reset/`});
  if(error)throw new Error(error.message);
  return 'ส่งลิงก์รีเซ็ตรหัสผ่านแล้ว หากบัญชีนี้มีอยู่ในระบบ';
+}
+
+export async function resetCurrentPassword(password:string,confirm:string){
+ const issues:string[]=[];
+ if(password.length<10)issues.push('รหัสผ่านต้องมีอย่างน้อย 10 ตัวอักษร');
+ if(!/[a-z]/.test(password)||!/[A-Z]/.test(password)||!/\d/.test(password)||!/[^A-Za-z0-9]/.test(password))issues.push('รหัสผ่านต้องมีตัวพิมพ์เล็ก พิมพ์ใหญ่ ตัวเลข และสัญลักษณ์');
+ if(password!==confirm)issues.push('รหัสผ่านยืนยันไม่ตรงกัน');
+ if(issues.length)throw new Error(issues.join('\n'));
+ const client=getSupabase();
+ const code=new URLSearchParams(window.location.search).get('code');
+ if(code){
+  const {error}=await client.auth.exchangeCodeForSession(code);
+  if(error)throw new Error(error.message||'ลิงก์รีเซ็ตรหัสผ่านไม่ถูกต้องหรือหมดอายุ');
+ }
+ const {data}=await client.auth.getSession();
+ if(!data.session)throw new Error('ลิงก์รีเซ็ตรหัสผ่านหมดอายุแล้ว กรุณาขอลิงก์ใหม่อีกครั้ง');
+ const {error}=await client.auth.updateUser({password});
+ if(error)throw new Error(error.message||'ตั้งรหัสผ่านใหม่ไม่สำเร็จ');
+ await client.auth.signOut();
+ localStorage.removeItem(TOKEN_KEY);
+ localStorage.removeItem(CONTEXT_KEY);
+ return 'ตั้งรหัสผ่านใหม่สำเร็จแล้ว กรุณาเข้าสู่ระบบอีกครั้ง';
 }
 
 export async function logout(){

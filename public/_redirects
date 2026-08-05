@@ -3,6 +3,9 @@
 /payment /payment/ 301
 /payment/ /index.html 200
 /payment/* /index.html 200
+/auth/reset /auth/reset/ 301
+/auth/reset/ /index.html 200
+/auth/reset/* /index.html 200
 /program /program/ 301
 /program/ /index.html 200
 /program/* /index.html 200
