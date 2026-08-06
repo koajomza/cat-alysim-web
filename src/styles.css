@@ -345,7 +345,7 @@
 .auth-page-compact .auth-stack input{height:46px;border-radius:10px}
 .auth-page-compact .auth-stack>button:not(.auth-link-button){height:48px;border-radius:11px;box-shadow:none}
 .auth-page-compact .auth-link-button,.auth-page-compact .reset-login-link{height:auto;min-height:0;margin-top:4px;background:transparent;color:#2556db;box-shadow:none;text-align:center;text-decoration:none;font-size:14px;font-weight:800}
-.auth-pay-link{min-height:44px;border:1px solid #cdd9eb;border-radius:11px;background:#f7faff;color:#14356f;text-decoration:none;font-weight:700;display:flex;align-items:center;justify-content:center;gap:8px}
+.auth-pay-link{min-height:44px;border:1px solid #cdd9eb;border-radius:11px;background:#f7faff;color:#14356f;text-decoration:none;font-weight:700;display:flex;align-items:center;justify-content:center;gap:8px;transition:.16s}
 .auth-pay-link:hover{border-color:#8aa7ff;background:#eef4ff;color:#194ed7}
 .auth-page-compact .auth-check{grid-template-columns:auto 1fr;align-items:center;gap:9px}
 .auth-page-compact .auth-check input{width:17px;height:17px;padding:0}
