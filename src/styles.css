@@ -271,6 +271,19 @@
 .auth-notice{border:1px solid #b8dfc8;background:#ebfff3;color:#147144;border-radius:12px;padding:11px 12px;margin-bottom:12px;font-size:13px;font-weight:800;line-height:1.55}
 .side-logout{width:100%;font:inherit;text-align:left;cursor:pointer}
 .profile-save{display:flex;flex-wrap:wrap;gap:10px}
+.license-profile-card{margin-bottom:18px;border:1px solid #d7e2ef;border-radius:22px;background:linear-gradient(135deg,#fff,#f6f9ff);box-shadow:0 14px 34px #17335f12;padding:22px;display:grid;grid-template-columns:minmax(0,1fr) minmax(360px,.8fr);gap:20px;align-items:center}
+.license-profile-card.lifetime{border-color:#9ee5bd;background:linear-gradient(135deg,#f4fff8,#fff)}
+.license-profile-card>div:first-child{display:grid;gap:6px}
+.license-profile-card>div:first-child>span{width:max-content;display:inline-flex;align-items:center;gap:8px;border-radius:999px;background:#eaf0ff;color:#2458ff;padding:7px 11px;font-size:12px;font-weight:700}
+.license-profile-card.lifetime>div:first-child>span{background:#e8fff1;color:#0b8a55}
+.license-profile-card h3{font-size:31px;margin:3px 0 0;color:#0b1d3b}
+.license-profile-card p{margin:0;color:#62718a;line-height:1.65}
+.license-profile-card small{color:#315177;font-weight:700}
+.license-profile-actions{display:grid;grid-template-columns:1fr auto;gap:10px;align-items:end}
+.license-profile-actions>a{grid-column:1/-1;text-decoration:none}
+.license-profile-actions label{display:grid;gap:6px;font-size:12px;font-weight:700;color:#465874}
+.license-profile-actions input{height:43px;border:1px solid #d7e1ee;border-radius:11px;background:#fff;padding:0 12px;outline:none}
+.license-profile-actions input:focus{border-color:#315efb;box-shadow:0 0 0 3px #315efb17}
 .user-shell{min-height:100vh;background:#f4f7fb;color:#132640}
 .user-topbar{height:72px;display:flex;align-items:center;justify-content:space-between;padding:0 clamp(18px,4vw,54px);background:#071427;color:#fff;border-bottom:1px solid #ffffff12}
 .user-brand{display:flex;align-items:center;gap:12px;color:#fff;text-decoration:none}
@@ -288,6 +301,7 @@
 .user-grid article{min-height:210px;border:1px solid #d8e3f0;background:#fff;border-radius:18px;padding:22px;display:grid;align-content:start;gap:9px;box-shadow:0 12px 30px #17335f0b}
 .user-grid article>svg{color:#2458e7}.user-grid small{color:#718198;font-size:11px;font-weight:900;text-transform:uppercase;letter-spacing:.08em}.user-grid h2{margin:2px 0;font-size:24px;color:#122641}.user-grid p{margin:0;color:#5d6d85;line-height:1.6;overflow-wrap:anywhere}.user-grid a{width:max-content;margin-top:8px;background:#2458e7;color:#fff;border-radius:11px;padding:10px 13px;text-decoration:none;font-weight:900}
 @media(max-width:900px){.auth-card-wide{grid-template-columns:1fr;padding:20px}.auth-panel-copy h1{font-size:38px}.user-topbar{height:auto;min-height:72px;align-items:flex-start;gap:14px;flex-direction:column;padding-top:16px;padding-bottom:16px}.user-topbar nav{flex-wrap:wrap}.user-hero,.user-grid{grid-template-columns:1fr}}
+@media(max-width:900px){.license-profile-card{grid-template-columns:1fr;padding:18px;border-radius:18px}.license-profile-actions{grid-template-columns:1fr}.license-profile-actions button,.license-profile-actions a{width:100%}.license-profile-card h3{font-size:26px}}
 
 /* Auth/navigation correction */
 .nav-login{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:48px;padding:0 18px;border-radius:13px;background:#fff;color:#152846!important;border:1px solid #ccd8e8;font-weight:900}
@@ -331,6 +345,8 @@
 .auth-page-compact .auth-stack input{height:46px;border-radius:10px}
 .auth-page-compact .auth-stack>button:not(.auth-link-button){height:48px;border-radius:11px;box-shadow:none}
 .auth-page-compact .auth-link-button,.auth-page-compact .reset-login-link{height:auto;min-height:0;margin-top:4px;background:transparent;color:#2556db;box-shadow:none;text-align:center;text-decoration:none;font-size:14px;font-weight:800}
+.auth-pay-link{min-height:44px;border:1px solid #cdd9eb;border-radius:11px;background:#f7faff;color:#14356f;text-decoration:none;font-weight:700;display:flex;align-items:center;justify-content:center;gap:8px}
+.auth-pay-link:hover{border-color:#8aa7ff;background:#eef4ff;color:#194ed7}
 .auth-page-compact .auth-check{grid-template-columns:auto 1fr;align-items:center;gap:9px}
 .auth-page-compact .auth-check input{width:17px;height:17px;padding:0}
 .auth-page-compact .auth-error{font-size:12px;line-height:1.55}

@@ -106,7 +106,7 @@ export async function signupTrial(username:string,email:string,password:string,c
  const redirectTo=`${window.location.origin}/trial/drugs/`;
  const {error}=await getSupabase().auth.signUp({email:email.trim().toLowerCase(),password,options:{emailRedirectTo:redirectTo,data:{username:username.trim().toLowerCase()}}});
  if(error)throw new Error(error.message);
- return 'สมัครสำเร็จแล้ว กรุณาตรวจอีเมลเพื่อยืนยันบัญชีและรับ Serial ทดลองใช้งาน';
+ return 'สมัครสำเร็จแล้ว ตรวจอีเมลเพื่อยืนยันบัญชี จากนั้นใช้ Serial ทดลอง หรือซื้อตลอดชีพได้ทันที';
 }
 
 export async function verifyTrialSerial(serial:string){
